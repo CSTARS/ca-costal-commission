@@ -1,0 +1,145 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+	<title>Marine, Coastal and Watershed Resource Directory</title>
+	
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet" />
+	<link href="css/style.css" rel="stylesheet">
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="jslib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="jslib/handlebars.js"></script>
+	<script type="text/javascript" src="js/mqe.js"></script>
+	<script type="text/javascript" src="js/search.js"></script>
+	<script type="text/javascript" src="js/home.js"></script>
+	
+	<script type="text/javascript">
+		$(window).ready(function(){
+			CCC.mqe.init();
+			
+			$("#accordion2").collapse();
+			$("#accordion2").height("auto");
+		});
+	</script>
+
+</head>
+<body style="padding:2% 6%">
+
+<div id="home" style="display:none">
+	<div class="well" style="text-align:center">
+		<h2>Marine, Coastal and Watershed<br />Resource Directory</h2>
+	</div>
+	<div style="text-align:center">This Resource Directory contains detailed descriptions of over 400 organizations that address marine, coastal and watershed topics in California.</div>
+	
+	<div class="row">
+	<div class="span10 offset1">
+		<div>Browse the directory for: </div>
+		<div class="accordion" id="accordion2" style="padding:5px 10px">
+		    <div class="accordion-group">
+		      <div class="accordion-heading">
+		        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+		        	Organizations by the county by which their <b>office</b> is located
+		        </a>
+		      </div>
+		      <div id="collapseOne" class="accordion-body collapse">
+		        <div class="accordion-inner">
+		        	<div id="org-by-office-county"></div>
+		        </div>
+		      </div>
+		    </div>
+		    <div class="accordion-group">
+		      <div class="accordion-heading">
+		        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+		          Organizations active in a particular <b>county</b>
+		        </a>
+		      </div>
+		      <div id="collapseTwo" class="accordion-body collapse">
+		        <div class="accordion-inner">
+		          <div id="org-by-active-county"></div>
+		        </div>
+		      </div>
+		    </div>
+		    <div class="accordion-group">
+		      <div class="accordion-heading">
+		        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+		          Organizations covering a particular <b>topic</b>
+		        </a>
+		      </div>
+		      <div id="collapseThree" class="accordion-body collapse">
+		        <div class="accordion-inner">
+		        	<div id="org-by-topic"></div>
+		        </div>
+		      </div>
+		    </div>
+	  	</div>
+	</div>
+	</div>
+  	
+  	<div class="page-header">
+	  	The Resource Directory is a product of the <a href="../../pendx.html">Public Education Department</a> 
+		of the California Coastal Commission, <a href="mailto:ed_directory@coastal.ca.gov">ed_directory@coastal.ca.gov</a>, 
+		(800) Coast4U.
+		<br />
+		<b><a href="organization_submission.html" target="_blank">Please submit your organization</a> for possible inclusion in the Resource Directory.</b>
+		<br />
+		Please help us to improve the Resource Directory by taking a <a href="form.html" target="_blank">brief survey</a>.
+  	</div>
+</div>
+
+<div id="search" style="display:none">
+	<div class="page-header" style="margin:0px">
+		<h4>Marine, Coastal & Watershed Resource Directory</h4>
+	</div>
+	<div style="padding:20px;color:#aaa;">
+		Your search results are listed below, with a brief description and links to full details about each organization. You can further narrow your search by clicking on the categories in the box on the left side of the page. 
+	</div>
+	
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="well form-search">
+				<div class="row-fluid">
+					<div class="span4" style="width:320px">
+						<input id="search-text" type="text" class="input-medium search-query" style="height:30px;width:220px;margin:0 10px 5px 0" >
+						<a id="search-btn" class="btn">Search</a>
+					</div>
+					<div class="span7" id="active-filters"></div>
+				</div>
+      		</div>
+		</div>
+	</div>
+	
+	<div class="row-fluid">
+		<div class="span3">
+			<div class="well">
+				<ul class="nav nav-list" id="filter-nav"></ul>
+			</div>
+		</div>
+		<div class="span9">
+			<div class="page-header" style="margin:10px 0 0 0">
+					<div class="row-fluid">
+						<div class="span6">
+							<h4 id="results-title">Search Results</h4>
+						</div>
+						<div class="span6">
+							<div id="search-paging" class="pagination pagination-right" style="margin:0px">
+						        <ul id="search-paging-btns"></ul>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div id="results-panel"></div>
+		</div>
+	</div>
+
+</div>
+
+<div id="result" style="display:none">
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+/******
+ * General CSS
+ ******/
+.filter-block {
+	display : none;
+}
+
+.search-block-title {
+	cursor      : pointer;
+	font-weight : bold;
+}
+
+.search-result-row {
+	margin : 2px;
+	padding : 10px 15px 15px 15px;
+}
+
+#results-panel .search-result-row:nth-child(even) {
+	background-color : #f5f5f5;
+	
+	border-radius         : 4px;
+	-moz-border-radius    : 4px;
+	-webkit-border-radius : 4px;
+}
+
+.search-result-row h6 {
+	margin: 0px;
+	border-bottom: 1px solid #eee;
+}
+
+/******
+ * Bootstrap Mods
+ ******/
+.nav-list {
+	padding : 0px;
+}
