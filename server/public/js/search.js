@@ -23,7 +23,7 @@ CCC.search = (function() {
 	// these are boolean checkboxes that always show
 	var staticFilters = {
 			Volunteer : {
-				filter : {Volunteer : { $exists: true, $not : { $size : 0 }  }},
+				filter : { Volunteer : { $exists: true, $not : { $size : 0 }  }},
 				label: "Volunteer Opportunities"
 			},
 			Intern : {
@@ -43,7 +43,7 @@ CCC.search = (function() {
 		rowTemplate = Handlebars.compile(RESULT_TEMPLATE);
 		titleTemplate = Handlebars.compile(TITLE_TEMPLATE);
 		
-		$(window).on("search-update-event", function(e, results){
+		$(window).bind("search-update-event", function(e, results){
 			_updateResultsTitle(results);
 			_updateResults(results);
 			_updateFilters(results); // this should always be before adding active filters
@@ -275,49 +275,14 @@ CCC.search = (function() {
 			var snippet = item.Mission ? item.Mission : "";
 			if( snippet.length > 200 ) snippet = snippet.substr(0,200)+"... ";
 			
-			var contact = "";
-			var link = "";
-			var wrapInLink = false;
-			var website = "";
-			if( item.ContactInfo && item.ContactInfo.length > 0 ) {
-				var ci = item.ContactInfo[0];
-				
-				if( ci.Address ) {
-					contact += ci.Address.replace(/\n/,"<br />")+"<br />";
-					
-					// try and see if you can find a address line that starts w/ number
-					var parts = ci.Address.split("\n");
-					for( var j = 0; j < parts.length; j++ ) {
-						if( parts[j].match(/^\d+/) || wrapInLink ) {
-							link += parts[j]+", ";
-							wrapInLink = true
-						}
-					}
-				}
-				if( ci.City ) {
-					contact += ci.City+", ";
-					link += ci.City+", ";
-				}
-				if( ci.State ) {
-					contact += ci.State+" ";
-					link += ci.State+" ";
-				}
-				if( ci.Zip ) {
-					contact += ci.Zip+"<br />";
-					link += ci.Zip;
-				}
-				if( ci.WebSite ) {
-					var url = ci.WebSite;
-					if( !url.match(/.*:\/\/.*/) ) url = "http://"+ci.WebSite;
-					website = "<h6>Website</h6><a href='"+url+"' target='_blank'>"+ci.WebSite+"</a>";
-				}
-			}
-			
-			if( wrapInLink ) {
-				contact = "<a href='https://maps.google.com/maps?saddr=&daddr="+encodeURIComponent(link)+"' target='_blank'>"+contact+"</a>";
-			}
+			var contact = formatContact(item, false);
 			if( contact.length > 0 ) {
 				contact = "<h6>Address</h4>" + contact + "<br />";
+			}
+			
+			var website = formatWebsite(item);
+			if( website.length > 0 ) {
+				website = "<h6>Website</h4>" + website + "<br />";
 			}
 			contact += website;
 
@@ -331,8 +296,92 @@ CCC.search = (function() {
 		}
 	}
 	
+	function formatContact(item, isLandingPage) {
+		var contact = "";
+		
+		var contact = "";
+		var link = "";
+		var wrapInLink = false;
+
+		if( item.ContactInfo && item.ContactInfo.length > 0 ) {
+			var ci = item.ContactInfo[0];
+			
+			if( ci.Address ) {
+				contact += ci.Address.replace(/\n/,"<br />")+"<br />";
+				
+				// try and see if you can find a address line that starts w/ number
+				var parts = ci.Address.split("\n");
+				for( var j = 0; j < parts.length; j++ ) {
+					if( parts[j].match(/^\d+/) || wrapInLink ) {
+						link += parts[j]+", ";
+						wrapInLink = true
+					}
+				}
+			}
+			if( ci.City ) {
+				contact += ci.City+", ";
+				link += ci.City+", ";
+			}
+			if( ci.State ) {
+				contact += ci.State+" ";
+				link += ci.State+" ";
+			}
+			if( ci.Zip ) {
+				contact += ci.Zip+"<br />";
+				link += ci.Zip;
+			}
+			
+			if( wrapInLink ) {
+				contact = "<a href='https://maps.google.com/maps?saddr=&daddr="+encodeURIComponent(link)+"' target='_blank'>"+contact+"</a>";
+			}
+			
+			if( ci.cname && isLandingPage ) {
+				contact = ci.cname+"<br />" + contact;
+			}
+			
+			if( ci.phones && isLandingPage ) {
+				for( var j = 0; j < ci.phones.length; j++ ) {
+					contact += "Phone: "+formatPhone(ci.phones[j].Phone)+"<br />";
+				}
+			}
+			if( ci.FaxNumber && isLandingPage ) {
+				contact += "Fax: "+formatPhone(ci.FaxNumber)+"<br />";
+			}
+			if( ci.EmailAddress && isLandingPage ) {
+				contact += "<a href='mailto:"+ci.EmailAddress+"'>"+ci.EmailAddress+"</a><br />";
+			}
+			
+		}
+		
+		
+		
+		return contact;
+	}
+	
+	function formatPhone(text) {
+		if( text.length <= 7 ) return text.replace(/(\d{3})(\d{4})/, '$1-$2');
+		return text.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+	}
+	
+	function formatWebsite(item) {
+		var website = "";
+		if( item.ContactInfo && item.ContactInfo.length > 0 ) {
+			var ci = item.ContactInfo[0];
+			if( ci.WebSite ) {
+				var url = ci.WebSite;
+				if( !url.match(/.*:\/\/.*/) ) url = "http://"+ci.WebSite;
+				website = "<a href='"+url+"' target='_blank'>"+ci.WebSite+"</a>";
+			}
+		}
+		return website;
+	}
+	
+	
 	return {
-		init : init
+		init : init,
+		formatContact : formatContact,
+		formatWebsite : formatWebsite,
+		formatPhone : formatPhone
 	}
 })();
                    

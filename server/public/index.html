@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="js/search.js"></script>
 	<script type="text/javascript" src="js/home.js"></script>
 	<script type="text/javascript" src="js/all.js"></script>
+	<script type="text/javascript" src="js/result.js"></script>
 	
 	<script type="text/javascript">
 		$(window).ready(function(){
@@ -140,8 +141,8 @@
 				<h4>Marine, Coastal & Watershed Resource Directory</h4>
 			</div>
 			<div class="span3">
-				<a class='btn btn-primary pull-right' href="/#home" style="margin:0 5px"><i class="icon-home icon-white"></i> Home</a>
-				<a class='btn btn-primary pull-right' href="/#all" style="margin:0 5px"><i class="icon-list icon-white"></i> See All</a>
+				<a class='btn btn-primary pull-right' href="/#home" style="margin:5px"><i class="icon-home icon-white"></i> Home</a>
+				<a class='btn btn-primary pull-right' href="/#all" style="margin:5px"><i class="icon-list icon-white"></i> See All</a>
 			</div>
 		</div>
 	</div>
@@ -190,6 +191,201 @@
 
 <div id="result" style="display:none">
 
+<script id="result-template" type="text/x-handlebars-template">
+  <div>
+	<div class="page-header">
+		<div class="row-fluid">
+			<div class="span9">
+				<h2>{{Organization}}</h2>
+			</div>
+			<div class="span3" style="height:40px;padding-top:10px;">
+				<a class="btn btn-primary pull-right" href="/#all" style="margin:5px"><i class="icon-list icon-white"></i> All</a>
+				<a id="result-back-btn" class="btn btn-primary pull-right" style="margin:5px"><i class="icon-search icon-white"></i> Search</a>
+			</div>
+		</div>
+	</div>
+	
+	{{#if website}}
+		<h4>Website</h4>
+		<div>{{website}}</div>
+	{{/if}}
+
+	{{#if org_type}}
+		<h4>Organization Type</h4>
+		{{#result-list org_type}}{{/result-list}}
+	{{/if}}
+
+	{{#if Mission}}
+		<h4>Mission</h4>
+		<div>{{Mission}}</div>
+	{{/if}}
+
+	{{#if contact}}
+		<h4>Contact</h4>
+		{{contact}}
+	{{/if}}
+	
+	{{#if geo_focus}}
+		<h4>Geographical Focus</h4>
+		{{#result-list geo_focus}}{{/result-list}}
+	{{/if}}
+
+	{{#if Counties}}
+		<h4>Counties Served</h4>
+		{{#result-list Counties}}{{/result-list}}
+	{{/if}}
+
+	{{#if activities}}
+		<h4>Activities</h4>
+		{{#result-list activities}}{{/result-list}}
+	{{/if}}
+
+	{{#if topics}}
+		<h4>Topics</h4>
+		{{#result-list topics}}{{/result-list}}
+	{{/if}}
+
+	{{#if edu_resources}}
+		<h4>Educational Resources</h4>
+		{{#result-list edu_resources}}{{/result-list}}
+	{{/if}}
+
+    {{#if DescribeLecture}}
+		<h4>Speaker/Lecture Series</h4>
+		<div>{{DescribeLecture}}</div>
+	{{/if}}
+
+	{{#if EdPrograms}}
+		<h4>Education Programs</h4>
+		<div>{{EdPrograms}}</div>
+	{{/if}}
+
+	{{#if target_audiences}}
+		<h4>Target Audiences</h4>
+		{{#result-list target_audiences}}{{/result-list}}
+	{{/if}}
+
+	{{#if other_lang}}
+		<h4>Other Languages</h4>
+		<div>{{other_lang}}</div>
+	{{/if}}
+
+	{{#if in_service}}
+		<h4>In-Service Training</h4>
+		<div>{{in_service}}</div>
+	{{/if}}
+
+	{{#if GroupSize}}
+		<h4>Group Size Accommodated</h4>
+		{{GroupSize}}
+	{{/if}}
+
+	{{#if Volunteer}}
+		<h4>Volunteer Opportunities</h4>
+	{{/if}}
+	{{#each Volunteer}}
+		<div style="padding: 0 15px 5px 15px">
+
+			{{#if this.VPDescription}}
+				<h5>Description</h5>
+				{{this.VPDescription}}
+			{{/if}}
+
+			{{#if this.VPWhenNeeded}}
+				<h5>When Needed</h5>
+				{{this.VPWhenNeeded}}
+			{{/if}}
+
+			{{#if this.VPQualifications}}
+				<h5>Qualifications</h5>
+				{{this.VPQualifications}}
+			{{/if}}
+
+			{{#if this.VPCommittmentRequired}}
+				<h5>Committment Required</h5>
+				{{this.VPCommittmentRequired}}
+			{{/if}}
+
+			{{#if this.VPCommServiceDoc}}
+				<h5>Community Service Documentation</h5>
+				{{this.VPCommServiceDoc}}
+			{{/if}}
+
+			<h5>Contact</h5>
+			{{#if this.VPContact}}{{this.VPContact}}<br />{{/if}}
+			{{#if this.VPWorkPhone}}{{VPWorkPhone}}<br />{{/if}}
+
+		</div>
+	{{/each}}
+
+
+	{{#if Intern}}
+		<h4>Internship Opportunities</h4>
+	{{/if}}
+	{{#each Intern}}
+		<div style="padding: 0 15px 5px 15px">
+
+			{{#if InDescription}}
+				<h5>Description</h5>
+				{{InDescription}}
+			{{/if}}
+
+			{{#if InWhenNeeded}}
+				<h5>When Needed</h5>
+				{{InWhenNeeded}}
+			{{/if}}
+
+			{{#if InQualifications}}
+				<h5>Qualifications</h5>
+				{{InQualifications}}
+			{{/if}}
+
+			{{#if InApplication}}
+				<h5>Application</h5>
+				{{InApplication}}
+			{{/if}}
+
+			{{#if NumberOfInterns}}
+				<h5>Number of Interns</h5>
+				{{NumberOfInterns}}
+			{{/if}}
+
+			{{#if Housing}}
+				<h5>Housing Provided</h5>
+				{{Housing}}
+			{{/if}}
+
+			{{#if PaidInternship}}
+				<h5>Paid</h5>
+				{{PaidInternship}}
+			{{/if}}
+			
+			{{#if Stipend}}
+				<h5>Stipend</h5>
+				{{Stipend}}
+			{{/if}}
+			
+			{{#if Credit}}
+				<h5>Credit</h5>
+				{{Credit}}
+			{{/if}}
+
+			<h5>Contact</h5>
+			{{#if InContact}}{{InContact}}<br />{{/if}}
+			{{#if InWorkPhone}}{{InWorkPhone}}<br />{{/if}}
+
+		</div>
+	{{/each}}
+
+
+	{{#if facilities}}
+		<h4>General Services</h4>
+		{{#result-list facilities}}{{/result-list}}
+	{{/if}}
+
+  </div>
+</script>
+
 </div>
 
 <div id="all" style="display:none">
@@ -199,8 +395,8 @@
 				<h4>Marine, Coastal & Watershed Resource Directory</h4>
 			</div>
 			<div class="span3">
-				<a class='btn btn-primary pull-right' href="/#home" style="margin:0 5px"><i class="icon-home icon-white"></i> Home</a>
-				<a class='btn btn-primary pull-right' href="/#search" style="margin:0 5px"><i class="icon-search icon-white"></i> Search</a>
+				<a class='btn btn-primary pull-right' href="/#home" style="margin:5px"><i class="icon-home icon-white"></i> Home</a>
+				<a class='btn btn-primary pull-right' href="/#search" style="margin:5px"><i class="icon-search icon-white"></i> Search</a>
 			</div>
 		</div>
 	</div>

@@ -17,15 +17,26 @@ CCC.mqe = (function(){
 	var cPage = "";
 	var cPath = "";
 	var cQuery = null;
+	var lastSearchHash = ["search"];
 	
 	function init() {
 		_parseUrl();
 		
 		CCC.home.init();
 		CCC.search.init();
+		CCC.result.init();
 		
 		$(window).on("hashchange", function(){
 			_parseUrl();
+		});
+		
+		$(window).bind("back-to-search-event", function(){
+			var hash = "/#";
+			for( var i = 0; i < lastSearchHash.length; i++ ){
+				hash += encodeURIComponent(lastSearchHash[i]);
+				if( i < lastSearchHash.length - 1 ) hash += "/";
+			}
+			window.location = hash;
 		});
 	}
 	
@@ -59,13 +70,16 @@ CCC.mqe = (function(){
 		} else if ( cPage == "search" ) {
 			_updateSearch(hash);
 		} else if ( cPage == "result" ) {
-			_updateResult();
+			_updateResult(hash);
 		} else if ( cPage == "all" ) {
 			CCC.all.init();
 		}
 	}
 	
 	function _updateSearch(hash) {
+		// set this for the back button
+		lastSearchHash = hash;
+		
 		var search = $.extend({}, DEFAULT_SEARCH);
 		
 		for( var i = 1; i < hash.length; i++ ) {
@@ -108,7 +122,11 @@ CCC.mqe = (function(){
 	}
 	
 	function _updateResult(hash) {
-		
+		$.get('/rest/get?_id='+hash[1],
+			function(data) {
+				$(window).trigger("result-update-event",[data]);  
+			}
+		);
 	}
 	
 	function getCurrentQuery() {
