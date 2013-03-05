@@ -9,7 +9,7 @@ CCC.search = (function() {
 	    "<div class='search-result-row'>",
 	    	"<h4><a href='#result/{{_id}}'>{{title}}</a></h4>",
 	    	"<div class='row-fluid'>",
-	    		"<div class='span7'>{{snippet}}<br /><a href='#result/{{_id}}'>[See complete details for this organization.]</a></div>",
+	    		"<div class='span7' style='padding-bottom:10px'>{{snippet}}<br /><a href='#result/{{_id}}'>[See complete details for this organization.]</a></div>",
 	    		"<div class='span5'>{{contact}}</div>",
 	    "</div>"
 	].join('');
@@ -36,6 +36,7 @@ CCC.search = (function() {
 			}
 	};
 	
+	var openFilters = [];
 	
 	function init() {
 		
@@ -61,6 +62,7 @@ CCC.search = (function() {
 	
 	function _search() {
 		var query = CCC.mqe.getCurrentQuery();
+		query.page = 0;
 		query.text = $("#search-text").val();
 		window.location = CCC.mqe.queryToUrlString(query);
 	}
@@ -69,6 +71,9 @@ CCC.search = (function() {
 	function _updateActiveFilters() {
 		var panel = $("#active-filters").html("");
 		var query = CCC.mqe.getCurrentQuery();
+		
+		// make sure text box is always correct
+		$("#search-text").val(query.text);
 		
 		if( query.filters.length == 0 ) return;
 		
@@ -100,9 +105,6 @@ CCC.search = (function() {
 			
 		}
 		
-		// make sure text box is always correct
-		$("#search-text").val(query.text);
-		
 	}
 	
 	function _updateFilters(results) {
@@ -112,14 +114,18 @@ CCC.search = (function() {
 		panel.append($('<li class="nav-header">Narrow Your Search</li>'));
 		panel.append($('<li class="divider"></li>'));
 		
-		var c = 0;
 		
 
 		// add filter blocks
 		var c = 0;
 		for( var key in results.filters ) {
-			var title = $("<li><a id='filter-block-title-"+c+"' class='search-block-title'>"+key+"</a></li>");
-			var block = $("<ul id='filter-block-"+c+"' class='filter-block'></ul>");
+			var label = CCC.labels.filters[key] ? CCC.labels.filters[key] : key;
+			
+			var title = $("<li><a id='filter-block-title-"+key+"' class='search-block-title'>"+label+"</a></li>");
+			
+			var display = "";
+			if( openFilters.indexOf(key) > -1 ) display = "style='display:block'" 
+			var block = $("<ul id='filter-block-"+key+"' class='filter-block' "+display+"></ul>");
 			
 			for( var i = 0; i < results.filters[key].length; i++ ) {
 				var item = results.filters[key][i];
@@ -138,6 +144,11 @@ CCC.search = (function() {
 			c++;
 		}
 		
+		if( c == 0 ) {
+			panel.append($("<div>No filters available for this search</div>"));
+			return;
+		}
+		
 		panel.append($('<li class="divider"></li>'));
 		
 		// add hide/show handlers for the blocks
@@ -145,8 +156,13 @@ CCC.search = (function() {
 			var id = e.target.id.replace(/filter-block-title-/, '');
 			var panel = $("#filter-block-"+id);
 			
-			if( panel.css("display") == "none" ) panel.show('blind');
-			else panel.hide('blind');
+			if( panel.css("display") == "none" ) {
+				panel.show('blind');
+				openFilters.push(id);
+			} else {
+				panel.hide('blind');
+				openFilters.splice(openFilters.indexOf(id),1);
+			}
 		});
 		
 		// add static 'boolean' filters
@@ -223,7 +239,7 @@ CCC.search = (function() {
 		}
 		
 		// add next button
-		if(  cPage != numPages-1 ) {
+		if(  cPage != numPages-1 && numPages != 0 ) {
 			tmpQuery.page = cPage+1;
 			panel.append($("<li><a href='"+CCC.mqe.queryToUrlString(tmpQuery)+"'>&#187;</a></li>"));
 		}
@@ -234,8 +250,12 @@ CCC.search = (function() {
 		var end = results.end;
 		if( results.total < end ) end = results.total;
 		
+		var start = parseInt(results.start)+1;
+		if( end == 0 ) start = 0;
+		
+		
 		$("#results-title").html(titleTemplate({
-			start : parseInt(results.start)+1,
+			start : start,
 			end   : end,
 			total : results.total
 		}));
@@ -244,8 +264,10 @@ CCC.search = (function() {
 	function _updateResults(results) {
 		var panel = $("#results-panel").html("");
 		
-		
-		
+		if( results.items.length == 0 ) {
+			panel.append("<div style='font-style:italic;color:#999;padding:15px 10px'>No results found for your current search.</div>");
+			return;
+		}
 		
 		for( var i = 0; i < results.items.length; i++ ) {
 			var item = results.items[i];

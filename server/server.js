@@ -1,17 +1,27 @@
 /**
  * This will actually extend the MQE expressjs server
  */
+var config = require("./config");
 
 // express app
-exports.extendServer = function(app) {
+exports.bootstrap = function(express, app, db) {
+	
+	var collection;
+	db.collection(config.db.mainCollection, function(err, coll) { 
+		if( err ) return console.log(err);
+
+		collection = coll;
+	});
 	
 	// get the results of a query
-	app.get('/rest/counties', function(req, res){
-		// TODO: 
+	app.get('/rest/allOrgs', function(req, res){
+		collection.find({},{Organization:1}).sort({Organization:1}).toArray(function(err, items) {
+			if( err ) res.send(err);
+			else res.send(items);
+		});
 	});
 	
-	app.get('/rest/topics', function(req, res){
-		// TODO:
-	});
+	
+	app.use("/", express.static(__dirname+"/public"));
 	
 };

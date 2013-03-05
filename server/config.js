@@ -31,8 +31,8 @@ exports.db = {
 
 exports.server = {
 	host : "localhost",
+	
 	port : 3000,
 	
-	// public directory
-	webroot         : "/Users/jrmerz/dev/ceres/ccc/server/public"
+	script : "/Users/jrmerz/dev/ceres/ca-costal-commission/server/server.js"
 }

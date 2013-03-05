@@ -13,7 +13,7 @@ CCC.mqe = (function(){
 	};
 	var HASH_SEARCH_ORDER = ["text","filters","page","itemsPerPage"];
 	
-	var validPages = [DEFAULT_PAGE, "search", "result"];
+	var validPages = [DEFAULT_PAGE, "search", "result", "all"];
 	var cPage = "";
 	var cPath = "";
 	var cQuery = null;
@@ -43,6 +43,8 @@ CCC.mqe = (function(){
 	function _updatePage(page) {
 		if( page == cPage ) return;
 		
+		$('body').scrollTop(0);
+		
 		if( validPages.indexOf(page) == -1 ) page = DEFAULT_PAGE;
 		
 		$("#"+cPage).hide();
@@ -58,6 +60,8 @@ CCC.mqe = (function(){
 			_updateSearch(hash);
 		} else if ( cPage == "result" ) {
 			_updateResult();
+		} else if ( cPage == "all" ) {
+			CCC.all.init();
 		}
 	}
 	
