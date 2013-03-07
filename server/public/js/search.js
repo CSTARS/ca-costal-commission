@@ -61,16 +61,16 @@ CCC.search = (function() {
 	}
 	
 	function _search() {
-		var query = CCC.mqe.getCurrentQuery();
+		var query = CERES.mqe.getCurrentQuery();
 		query.page = 0;
 		query.text = $("#search-text").val();
-		window.location = CCC.mqe.queryToUrlString(query);
+		window.location = CERES.mqe.queryToUrlString(query);
 	}
 	
 	
 	function _updateActiveFilters() {
 		var panel = $("#active-filters").html("");
-		var query = CCC.mqe.getCurrentQuery();
+		var query = CERES.mqe.getCurrentQuery();
 		
 		// make sure text box is always correct
 		$("#search-text").val(query.text);
@@ -82,7 +82,9 @@ CCC.search = (function() {
 		
 		for( var i = 0; i < query.filters.length; i++ ) {
 			// get query copy and splice array
-			var tmpQuery = CCC.mqe.getCurrentQuery();
+			var tmpQuery = CERES.mqe.getCurrentQuery();
+			tmpQuery.page = 0;
+			
 			var foo = tmpQuery.filters.splice(i,1);
 			
 			var f = "";
@@ -101,7 +103,7 @@ CCC.search = (function() {
 				
 			}
 			
-			panel.append($("<a href='"+CCC.mqe.queryToUrlString(tmpQuery)+"' style='margin:0 5px 5px 0' class='btn btn-primary btn-small'><i class='icon-remove icon-white'></i> "+f+"</a>"))
+			panel.append($("<a href='"+CERES.mqe.queryToUrlString(tmpQuery)+"' style='margin:0 5px 5px 0' class='btn btn-primary btn-small'><i class='icon-remove icon-white'></i> "+f+"</a>"))
 			
 		}
 		
@@ -129,14 +131,14 @@ CCC.search = (function() {
 			
 			for( var i = 0; i < results.filters[key].length; i++ ) {
 				var item = results.filters[key][i];
-				var query = CCC.mqe.getCurrentQuery();
+				var query = CERES.mqe.getCurrentQuery();
 				query.page = 0;
 				
 				var filter = {};
 				filter[key] = item.filter;
 				query.filters.push(filter);
 				
-				block.append($("<li><a href='"+CCC.mqe.queryToUrlString(query)+"'>"+item.filter+" ("+item.count+")</a></li>"));
+				block.append($("<li><a href='"+CERES.mqe.queryToUrlString(query)+"'>"+item.filter+" ("+item.count+")</a></li>"));
 			}
 			
 			title.append(block);
@@ -177,7 +179,7 @@ CCC.search = (function() {
 		// add click handler for static filters
 		$(".static-filters").on('click', function(e) {
 			var filter = e.target.id.replace(/static-filter-/, '');
-			var query = CCC.mqe.getCurrentQuery();
+			var query = CERES.mqe.getCurrentQuery();
 			
 			if( this.checked ) {
 				query.filters.push(staticFilters[filter].filter);
@@ -195,13 +197,13 @@ CCC.search = (function() {
 				}
 			}
 			
-			window.location = CCC.mqe.queryToUrlString(query);
+			window.location = CERES.mqe.queryToUrlString(query);
 		});
 		
 	}
 	
 	function _updatePaging(results) {
-		var tmpQuery = CCC.mqe.getCurrentQuery();
+		var tmpQuery = CERES.mqe.getCurrentQuery();
 		var numPages = Math.ceil( parseInt(results.total) / tmpQuery.itemsPerPage );
 		var cPage = Math.floor( parseInt(results.start+1) / tmpQuery.itemsPerPage );
 		
@@ -227,13 +229,13 @@ CCC.search = (function() {
 		// add back button
 		if( cPage != 0 ) {
 			tmpQuery.page = cPage-1;
-			panel.append($("<li><a href='"+CCC.mqe.queryToUrlString(tmpQuery)+"'>&#171;</a></li>"));
+			panel.append($("<li><a href='"+CERES.mqe.queryToUrlString(tmpQuery)+"'>&#171;</a></li>"));
 		}
 		
 		for( var i = startBtn; i < endBtn; i++ ) {
 			var label = i+1;
 			tmpQuery.page = i;
-			var btn = $("<li><a href='"+CCC.mqe.queryToUrlString(tmpQuery)+"'>"+label+"</a></li>");
+			var btn = $("<li><a href='"+CERES.mqe.queryToUrlString(tmpQuery)+"'>"+label+"</a></li>");
 			if( cPage == i ) btn.addClass('active');
 			panel.append(btn);
 		}
@@ -241,7 +243,7 @@ CCC.search = (function() {
 		// add next button
 		if(  cPage != numPages-1 && numPages != 0 ) {
 			tmpQuery.page = cPage+1;
-			panel.append($("<li><a href='"+CCC.mqe.queryToUrlString(tmpQuery)+"'>&#187;</a></li>"));
+			panel.append($("<li><a href='"+CERES.mqe.queryToUrlString(tmpQuery)+"'>&#187;</a></li>"));
 		}
 		
 	}

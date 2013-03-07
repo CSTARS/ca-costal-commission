@@ -51,38 +51,5 @@ CCC.home = (function(){
 	
 })();
 
-CCC.data = {};
-CCC.data.counties = ["Alameda", "Alpine", "Amador", "Butte", "Calaveras", "Colusa", "Contra Costa",
-                     "Del Norte", "El Dorado", "Fresno", "Glenn", "Humboldt", "Imperial", "Inyo",
-                     "Kern", "Kings", "Lake", "Lassen", "Los Angeles", "Madera", "Marin", "Mariposa",
-                     "Mendocino", "Merced", "Modoc", "Mono", "Monterey", "Napa", "Nevada", "Orange",
-                     "Placer", "Plumas", "Riverside", "Sacramento", "San Benito", "San Bernardino",
-                     "San Diego", "San Francisco", "San Joaquin", "San Luis Obispo", "San Mateo",
-                     "Santa Barbara", "Santa Clara", "Santa Cruz", "Shasta", "Sierra", "Siskiyou",
-                     "Solano", "Sonoma", "Stanislaus", "Sutter", "Tehama", "Trinity", "Tulare",
-                     "Tuolumne", "Ventura", "Yolo", "Yuba"];
 
-CCC.data.topics = ["Habitat Restoration", "Invasive Species", "Islands", "Kelp Forest", 
-                   "Marine/Estuary Reserves & Sanctuaries", "Ocean Literacy", "Open Ocean/Oceanography", 
-                   "Rocky Intertidal", "Sand Dune Habitats", "Water Quality/Storm Water Runoff", 
-                   "Watersheds/Hydrology", "Wetlands", "Wildlife"];
-
-CCC.data.edu_types = ["Activity/Learning Kit", "Brochures", "Curriculum", "Exhibits/Displays", 
-                      "Field Trips", "Guidebooks", "Guided Walks", "Library/Lending Materials", "Maps", 
-                      "Multimedia", "Nature Trails", "Newsletter", "Posters", 
-                      "Program(s) at our Location", "Program(s) at Schools", "Publications", 
-                      "Speaker and/or Lecture Series"];
-
-CCC.data.target = ["Grades preK-3", "Grades 4-6", "Grades 7-9", "Grades 10-12", "Adults", "Teachers", 
-                   "Informal Educators", "Policy Makers", "General Public"];
-
-CCC.labels = {};
-CCC.labels.filters = {
-	"topics"        : "Topics",
-	"activities"    : "Activities",
-	"geo_focus"     : "Geographical Focus",
-	"org_type"      : "Type of Organization",
-	"edu_resources" : "Educational Resources",
-	"Counties"      : "County(ies) Active in"
-};
 
