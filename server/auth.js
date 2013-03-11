@@ -74,6 +74,8 @@ function _setupFacebookAuth(server) {
 	    callbackURL: rootUrl+"/auth/facebook/callback"
 	  },
 	  function(accessToken, refreshToken, profile, done) {
+		  console.log(profile);
+		  console.log(JSON.stringify(profile));
 		  
 			var user = {
 				identifier : profile.profileUrl,
