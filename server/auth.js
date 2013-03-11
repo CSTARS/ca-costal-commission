@@ -1,7 +1,7 @@
 /**
  * Server authentication module
  */
-var GoogleStrategy = require('./node_modules/passport-google').Strategy;
+var GoogleStrategy = require('passport-google').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 // setup the google strategy
