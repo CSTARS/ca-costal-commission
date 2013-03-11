@@ -3,23 +3,16 @@ var MongoClient = require('mongodb').MongoClient, db;
 var parse = require('./parseCsvs');
 
 
-exports.importData = function(callback) {
+exports.importData = function(database, callback) {
 	console.log("at import data");
 	
-	MongoClient.connect("mongodb://localhost:27017/ccc", function(err, database) {
-		  if(!err) {
-			db = database;
-		    console.log("We are connected to Mongo, all systems go.");
-		    
-		    console.log("Parsing csv files");
-		    parse.getData(function(data) {
-		    	onDataLoad(data, callback);
-		    });
-		    
-		  } else {
-			  callback(err);
-		  }
-	});
+	db = database;
+    console.log("We are connected to Mongo, all systems go.");
+    
+    console.log("Parsing csv files");
+    parse.getData(function(data) {
+    	onDataLoad(data, callback);
+    });
 }
 
 var onDataLoad = function(data, callback) {
