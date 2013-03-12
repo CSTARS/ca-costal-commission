@@ -57,10 +57,12 @@ CCC.data.counties = ["Alameda", "Alpine", "Amador", "Butte", "Calaveras", "Colus
                      "Solano", "Sonoma", "Stanislaus", "Sutter", "Tehama", "Trinity", "Tulare",
                      "Tuolumne", "Ventura", "Yolo", "Yuba"];
 
-CCC.data.topics = ["Habitat Restoration", "Invasive Species", "Islands", "Kelp Forest", 
-                   "Marine/Estuary Reserves & Sanctuaries", "Ocean Literacy", "Open Ocean/Oceanography", 
-                   "Rocky Intertidal", "Sand Dune Habitats", "Water Quality/Storm Water Runoff", 
-                   "Watersheds/Hydrology", "Wetlands", "Wildlife"];
+CCC.data.topics = ["Aquaculture", "Bay & Estuary Habitats", "Beaches", "Boating", "Climate Change", 
+                   "Coastal Access", "Coastal Processes", "Cultural History", "Endangered Species", 
+                   "Energy", "Environmental Justice", "Fisheries", "Habitat Restoration", "Invasive Species", 
+                   "Islands", "Kelp Forest", "Marine Debris", "Marine/Estuary Reserves & Sanctuaries", 
+                   "Ocean Literacy", "Open Ocean", "Rocky Intertidal", "Sand Dune Habitats", 
+                   "Water Quality/Storm Water Runoff", "Watersheds/Hydrology", "Wetlands", "Wildlife"];
 
 CCC.data.edu_types = ["Activity/Learning Kit", "Brochures", "Curriculum", "Exhibits/Displays", 
                       "Field Trips", "Guidebooks", "Guided Walks", "Library/Lending Materials", "Maps", 

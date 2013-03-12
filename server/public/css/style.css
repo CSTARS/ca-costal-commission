@@ -52,6 +52,12 @@
 	margin-bottom : 2px;
 }
 
+.help-text {
+	font-size   : 11px;
+	text-shadow : 0 1px 0 rgba(255,255,255,0.5);
+	color       : #888;
+}
+
 /******
  * Bootstrap Mods
  ******/

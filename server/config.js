@@ -22,7 +22,14 @@ exports.db = {
 	// currently Mongo only allows the creation of text search on one attribute.  MQE will
 	// combine all filters listed below into a single attribute that will be used for
 	// the text search index
-	textIndexes     : ["Mission", "Organization"],
+	textIndexes     : ["AudioTapes", "CDRom", "ContactInfo", "Counties", "DateEntered", "DisabledAccessDiscription", 
+	                   "EdPrograms", "FeeDescription", "InServiceDescription", "Intern", "InternOpps", "Mission", 
+	                   "OrgID", "Organization", "ParkingAvailabilityText", "PublicTransitAccessext", "ServiceFees", 
+	                   "Slideshow", "Videos", "Volunteer", "VolunteerOpps", "activities", "alt_language_materials", 
+	                   "auFree", "auLoan", "auOnsite", "auPurchase", "cdFree", "cdLoan", "cdOnsite", "cdPurchase", 
+	                   "edu_resources", "facilities", "geo_focus", "mmFree", "mmLoan", "mmOnsite", "mmPurchase", 
+	                   "org_type", "ssFree", "ssLoan", "ssOnsite", "ssPurchase", "target_audiences", "topics", 
+	                   "training", "transportation"],
 	
 	// local script to be fired when update is called via admin api call
 	importScript    : "/Users/jrmerz/dev/ceres/ccc/server/import.js"
