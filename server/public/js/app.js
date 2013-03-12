@@ -75,10 +75,9 @@ CCC.data.target = ["Grades preK-3", "Grades 4-6", "Grades 7-9", "Grades 10-12", 
 
 CCC.labels = {};
 CCC.labels.filters = {
-	"topics"        : "Topics",
-	"activities"    : "Activities",
-	"geo_focus"     : "Geographical Focus",
-	"org_type"      : "Type of Organization",
-	"edu_resources" : "Educational Resources",
-	"Counties"      : "County(ies) Active in"
+	"topics"           : "Topics",
+	"org_type"         : "Type of Organization",
+	"edu_resources"    : "Educational Resources",
+	"Counties"         : "County Active in",
+	"target_audiences" : "Target Audience"
 };
