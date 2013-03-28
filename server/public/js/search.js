@@ -274,7 +274,7 @@ CCC.search = (function() {
 		for( var i = 0; i < results.items.length; i++ ) {
 			var item = results.items[i];
 			
-			var snippet = item.Mission ? item.Mission : "";
+			var snippet = item.mission ? item.mission : "";
 			if( snippet.length > 200 ) snippet = snippet.substr(0,200)+"... ";
 			
 			var contact = formatContact(item, false);
@@ -291,7 +291,7 @@ CCC.search = (function() {
 			
 			panel.append(rowTemplate({
 				_id     : item._id,
-				title   : item.Organization,
+				title   : item.organization,
 				snippet : snippet,
 				contact : contact
 			}));
@@ -305,14 +305,14 @@ CCC.search = (function() {
 		var link = "";
 		var wrapInLink = false;
 
-		if( item.ContactInfo && item.ContactInfo.length > 0 ) {
-			var ci = item.ContactInfo[0];
+		if( item.contactInfo && item.contactInfo.length > 0 ) {
+			var ci = item.contactInfo[0];
 			
-			if( ci.Address ) {
-				contact += ci.Address.replace(/\n/,"<br />")+"<br />";
+			if( ci.addressStreet ) {
+				contact += ci.addressStreet.replace(/\n/,"<br />")+"<br />";
 				
 				// try and see if you can find a address line that starts w/ number
-				var parts = ci.Address.split("\n");
+				var parts = ci.addressStreet.split("\n");
 				for( var j = 0; j < parts.length; j++ ) {
 					if( parts[j].match(/^\d+/) || wrapInLink ) {
 						link += parts[j]+", ";
@@ -320,37 +320,42 @@ CCC.search = (function() {
 					}
 				}
 			}
-			if( ci.City ) {
-				contact += ci.City+", ";
-				link += ci.City+", ";
+			if( ci.addressStreet2 ) {
+				contact += ci.addressStreet2+"<br /> ";
+				link += ci.addressStreet2+" ";
 			}
-			if( ci.State ) {
-				contact += ci.State+" ";
-				link += ci.State+" ";
+			if( ci.addressCity ) {
+				contact += ci.addressCity+", ";
+				link += ci.addressCity+", ";
 			}
-			if( ci.Zip ) {
-				contact += ci.Zip+"<br />";
-				link += ci.Zip;
+			if( ci.addressState ) {
+				contact += ci.addressState+" ";
+				link += ci.addressState+" ";
+			}
+			if( ci.addressZip ) {
+				contact += ci.addressZip+"<br />";
+				link += ci.addressZip;
 			}
 			
 			if( wrapInLink ) {
 				contact = "<a href='https://maps.google.com/maps?saddr=&daddr="+encodeURIComponent(link)+"' target='_blank'>"+contact+"</a>";
 			}
 			
-			if( ci.cname && isLandingPage ) {
-				contact = ci.cname+"<br />" + contact;
+			if( ci.name && isLandingPage ) {
+				contact = ci.name+"<br />" + contact;
 			}
 			
-			if( ci.phones && isLandingPage ) {
-				for( var j = 0; j < ci.phones.length; j++ ) {
-					contact += "Phone: "+formatPhone(ci.phones[j].Phone)+"<br />";
-				}
+			if( ci.phone && isLandingPage ) {
+				contact += "Phone: "+formatPhone(ci.phone)+"<br />";
 			}
-			if( ci.FaxNumber && isLandingPage ) {
-				contact += "Fax: "+formatPhone(ci.FaxNumber)+"<br />";
+			if( ci.altPhone && isLandingPage ) {
+				contact += "Alt Phone: "+formatPhone(ci.altPhone)+"<br />";
 			}
-			if( ci.EmailAddress && isLandingPage ) {
-				contact += "<a href='mailto:"+ci.EmailAddress+"'>"+ci.EmailAddress+"</a><br />";
+			if( ci.faxNumber && isLandingPage ) {
+				contact += "Fax: "+formatPhone(ci.faxNumber)+"<br />";
+			}
+			if( ci.email && isLandingPage ) {
+				contact += "<a href='mailto:"+ci.email+"'>"+ci.email+"</a><br />";
 			}
 			
 		}
@@ -367,12 +372,12 @@ CCC.search = (function() {
 	
 	function formatWebsite(item) {
 		var website = "";
-		if( item.ContactInfo && item.ContactInfo.length > 0 ) {
-			var ci = item.ContactInfo[0];
-			if( ci.WebSite ) {
-				var url = ci.WebSite;
-				if( !url.match(/.*:\/\/.*/) ) url = "http://"+ci.WebSite;
-				website = "<a href='"+url+"' target='_blank'>"+ci.WebSite+"</a>";
+		if( item.contactInfo && item.contactInfo.length > 0 ) {
+			var ci = item.contactInfo[0];
+			if( ci.website ) {
+				var url = ci.website;
+				if( !url.match(/.*:\/\/.*/) ) url = "http://"+ci.website;
+				website = "<a href='"+url+"' target='_blank'>"+ci.website+"</a>";
 			}
 		}
 		return website;

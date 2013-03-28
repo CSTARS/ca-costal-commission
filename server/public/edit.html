@@ -1,0 +1,154 @@
+<html>
+<head>
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet" />
+	<style>
+		input[type=text], input[type=password], input[type=number], input[type=email], 
+		input[type=tel], input[type=date], input[type=url] {
+			height : 40px !important;
+		}
+		.dform-section {
+			margin-bottom : 25px;
+		}
+		.dform-subform {
+			margin : 10px;
+			padding : 15px;
+			border : 1px solid #ccc;
+			background-color : #eaeaea;
+			
+			border-radius : 6px;
+			-moz-border-radius : 6px;
+			-webkit-border-radius : 6px;
+			
+			box-shadow : 0 0 3px #ccc inset;
+			-moz-box-shadow : 0 0 3px #ccc inset;
+			-webkit-box-shadow : 0 0 3px #ccc inset;
+		}
+		.ui-dform-form textarea {
+			height : 150px;
+			width  : 90%;
+		}
+		.dform-divider {
+			text-align    : center;
+			border-bottom : 1px solid #ddd; 
+			margin-bottom : 15px;
+		}
+		.ui-dform-label.error {
+			color: red !important;
+		}
+	</style>
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="jslib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="jslib/jquery.dform.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-dform.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$.ajax({
+		url     : "/rest/formData",
+		success : function(options) {
+			options.id = "#form-root";
+			//if( localStorage.form ) data.data = JSON.parse(localStorage.form);
+			//Ceres.forms.generate(data);
+			
+			onFormReady(options);
+		}
+	});
+       
+ });
+
+function initHandlers() {
+	
+	 $("#form-root-save").on('click', function(){
+		 if( $(this).hasClass('disabled') ) return;
+		 
+		 var data = Ceres.forms.getData();
+		 if( $_GET["_id"] && $_GET["_id"] != "" ) {
+			 data._id = $_GET["_id"];
+		 }
+		 
+		 if( data.error ) {
+			$("#form-error-msg").html("Missing required fields");
+		 } else {
+			$("#form-error-msg").html("");
+			$(this).addClass('disabled').text('Saving...');
+			 
+			$.ajax({
+				url     : '/rest/editData',
+				type    : 'POST',
+				data    : data,
+				error : function() {
+					$("#form-root-save").removeClass('disabled').text('Save');
+					alert("failed to submit");
+				},
+				success : function(resp) {
+					$("#form-root-save").removeClass('disabled').text('Save');
+					if( resp.error ) return alert(resp.message);
+					alert("Thank you for your submission!");
+					
+					if( $_GET["_id"] && $_GET["_id"] != "" ) {
+						 window.location = "/#result/"+ $_GET["_id"];
+					 } else {
+						 window.location = "/";
+					 }
+				}
+			});
+			
+			
+		 }
+	 });
+	 
+	 $("#form-root-cancel").on('click', function(){
+		 if( $_GET["_id"] && $_GET["_id"] != "" ) {
+			 window.location = "/#result/"+ $_GET["_id"];
+		 } else {
+			 window.location = "/";
+		 }
+	 });
+};
+
+function onFormReady(options) {
+	
+	options.onCreate = function() {
+		initHandlers();
+	}
+	
+	if( $_GET["_id"] && $_GET["_id"] != "" ) {
+		$.ajax({
+			url : "/rest/get?_id="+$_GET["_id"],
+			success : function(data) {
+				options.data = data;
+				Ceres.forms.generate(options);
+			}
+		});
+	} else {
+		Ceres.forms.generate(options);
+	}
+}
+
+// set get vars
+var $_GET = {};
+document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+    function decode(s) {
+        return decodeURIComponent(s.split("+").join(" "));
+    }
+
+    $_GET[decode(arguments[1])] = decode(arguments[2]);
+});
+
+</script>
+
+</head>
+<body>
+	<div class="well" style="margin:20px">
+		<div id="form-root" ></div>
+		<div id="form-error-msg" style="color:red"></div>
+	</div>
+	
+
+</body>
+</html>

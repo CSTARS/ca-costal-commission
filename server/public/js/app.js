@@ -5,7 +5,7 @@ var CCC = {
 CCC.app = (function() {
 	
 	var DEFAULT_PAGE = "home";
-	var validPages = [DEFAULT_PAGE, "search", "result", "all"];
+	var validPages = [DEFAULT_PAGE, "search", "result", "all", "edit"];
 	
 	var cPage = "";
 	
@@ -40,6 +40,8 @@ CCC.app = (function() {
 	function _updatePageContent(hash) {
 		if ( cPage == "all" ) {
 			CCC.all.init();
+		} else if ( cPage == "edit" ) {
+			CCC.edit.init();
 		}
 	}
 	
@@ -76,8 +78,7 @@ CCC.data.target = ["Grades preK-3", "Grades 4-6", "Grades 7-9", "Grades 10-12", 
 CCC.labels = {};
 CCC.labels.filters = {
 	"topics"           : "Topics",
-	"org_type"         : "Type of Organization",
-	"edu_resources"    : "Educational Resources",
-	"Counties"         : "County Active in",
-	"target_audiences" : "Target Audience"
+	"eduResources"    : "Educational Resources",
+	"counties"         : "County Active in",
+	"audiences"    : "Target Audience"
 };

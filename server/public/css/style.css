@@ -58,6 +58,39 @@
 	color       : #888;
 }
 
+/****
+ * Google Form Styling
+ ****/
+
+#edit ul {
+	list-style-type : none;
+}
+
+.ss-q-title {
+	font-weight    : bold;
+	text-rendering : optimizelegibility;
+	cursor         : default;
+	margin         : 0px;
+}
+
+.ss-q-help {
+	font-size   : 11px;
+	text-shadow : 0 1px 0 rgba(255,255,255,0.5);
+	color       : #888;
+}
+
+.ss-required-asterisk {
+	color : red;
+}
+
+#edit input[type="text"] {
+	height : 30px;
+}
+
+#edit input[type="radio"], #edit input[type="checkbox"] {
+	margin: -2px 0 0 0;
+}
+
 /******
  * Bootstrap Mods
  ******/

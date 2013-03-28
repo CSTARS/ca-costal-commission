@@ -31,9 +31,7 @@ var onDataLoad = function(data, callback) {
 				console.log("Done.  Mongo is set to go :)");
 			});
 		});
-		
-		
-		
+
 	});
 }
 

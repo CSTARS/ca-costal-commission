@@ -1,0 +1,97 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+	<title>Marine, Coastal and Watershed Resource Directory</title>
+	
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet" />
+	<link href="css/style.css" rel="stylesheet">
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="jslib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="jslib/handlebars.js"></script>
+	<script type="text/javascript" src="jslib/diff_match_patch.js"></script>
+	<script type="text/javascript" src="mqe/mqe.js"></script>
+	
+	
+	<script type="text/javascript">
+		var CCC = {};
+		$(window).ready(function(){
+			CCC.result.init();
+			
+			$(window).bind('hashchange', function(){
+				_onHashChange();
+			});
+			_onHashChange();
+		});
+		
+		function _onHashChange() {
+			var hash = window.location.hash.replace("#",'');
+			
+			if( hash == null || hash == "") {
+				CCC.admin.showHome();
+			} else {
+				CCC.admin.showResult(hash);
+			}
+		}
+	</script>
+	
+	<script type="text/javascript" src="js/result.js"></script>
+	<script type="text/javascript" src="js/search.js"></script>
+	<script type="text/javascript" src="js/admin.js"></script>
+
+</head>
+<body style="padding:2% 6%">
+
+<div id="home" style="display:none">
+	<div class="well" style="text-align:center">
+		<h2>Creeks to Coast Directory</h2>
+		<h4>Admin Dashboard</h4>
+	</div>
+	
+	<div style="text-align:center">Select submission below to review and accept or reject</div>
+	
+	<div id="submissions"></div>
+
+</div>
+
+<div id="result" style="display:none"></div>
+
+<div id="edit">
+	
+	<div class="row-fluid">
+		<div class="span12">
+
+			<div class="well">
+				<a class="btn btn-primary pull-right" href="/admin.html">Back</a>
+				<h3 id="edit-org-name"></h3>
+				
+				<div id="edit-submitter-name"></div>
+				<div id="edit-submitter-phone"></div>
+				<div id="edit-submitter-email"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+		<div class="span6">
+			<div class="page-header"><h3>Changes from old record</h3></div>
+			<div id="resultOld"></div>
+		</div>
+		<div class="span6">
+			<div class="page-header"><h3>New Record</h3></div>
+			<div id="resultNew"></div>
+		</div>
+	</div>
+	
+	<div style="text-align:center">
+		<a class="btn btn-primary">Approve</a>
+		<a class="btn btn-danger">Reject</a>
+		<a class="btn" href="/admin.html">Cancel</a>
+	</div>
+</div>
+
+</body>
+</html>

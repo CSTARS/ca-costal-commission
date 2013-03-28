@@ -1,0 +1,200 @@
+<script id="result-template" type="text/x-handlebars-template">
+  <div>
+	<div class="page-header">
+		<div class="row-fluid">
+			<div class="span9">
+				<h2>{{organization}}</h2>
+			</div>
+			<div class="span3" style="height:40px;padding-top:10px;">
+				<a class='btn btn-primary pull-right' href="/#home" style="margin:5px"><i class="icon-home icon-white"></i> Home</a>
+				<a class="btn btn-primary pull-right" href="/#all" style="margin:5px"><i class="icon-list icon-white"></i> All</a>
+				<a id="result-back-btn" class="btn btn-primary pull-right" style="margin:5px"><i class="icon-search icon-white"></i> Search</a>
+			</div>
+		</div>
+	</div>
+	
+	{{#if website}}
+		<h4>Website</h4>
+		<div class="website">{{website}}</div>
+	{{/if}}
+
+	{{#if orgType}}
+		<h4>Organization Type</h4>
+		<div class="orgType">{{#result-list orgType}}{{/result-list}}</div>
+	{{/if}}
+
+	{{#if mission}}
+		<h4>Mission</h4>
+		<div class="mission">{{mission}}</div>
+	{{/if}}
+
+	{{#if contact}}
+		<h4>Contact</h4>
+		<div class="contact">{{contact}}</div>
+	{{/if}}
+	
+	{{#if geoFocus}}
+		<h4>Geographical Focus</h4>
+		<div class="geoFocus">{{#result-list geoFocus}}{{/result-list}}</div>
+	{{/if}}
+
+	{{#if counties}}
+		<h4>Counties Served</h4>
+		<div class="counties">{{#result-list counties}}{{/result-list}}</div>
+	{{/if}}
+
+	{{#if activities}}
+		<h4>Activities</h4>
+		<div class="activities">{{#result-list activities}}{{/result-list}}</div>
+	{{/if}}
+
+	{{#if topics}}
+		<h4>Topics</h4>
+		<div class="topics">{{#result-list topics}}{{/result-list}}</div>
+	{{/if}}
+
+	{{#if eduResources}}
+		<h4>Educational Resources</h4>
+		<div class="eduResources">{{#result-list eduResources}}{{/result-list}}</div>
+	{{/if}}
+
+    {{#if describeLecture}}
+		<h4>Speaker/Lecture Series</h4>
+		<div>{{describeLecture}}</div>
+	{{/if}}
+
+	{{#if eduDescription}}
+		<h4>Education Programs</h4>
+		<div>{{eduDescription}}</div>
+	{{/if}}
+
+	{{#if audiences}}
+		<h4>Target Audiences</h4>
+		{{#result-list audiences}}{{/result-list}}
+	{{/if}}
+
+	{{#if languages}}
+		<h4>Other Languages</h4>
+		<div>{{languages}}</div>
+	{{/if}}
+
+	{{#if in_service}}
+		<h4>In-Service Training</h4>
+		<div>{{in_service}}</div>
+	{{/if}}
+
+	{{#if groupSize}}
+		<h4>Group Size Accommodated</h4>
+		{{groupSize}}
+	{{/if}}
+
+	{{#if volunteers}}
+		<h4>Volunteer Opportunities</h4>
+	{{/if}}
+	{{#each volunteers}}
+		<div style="padding: 0 15px 5px 15px">
+
+			{{#if description}}
+				<h5>Description</h5>
+				{{description}}
+			{{/if}}
+
+			{{#if timeOfYear}}
+				<h5>When Needed</h5>
+				{{timeOfYear}}
+			{{/if}}
+
+			{{#if qualifications}}
+				<h5>Qualifications</h5>
+				{{qualifications}}
+			{{/if}}
+
+			{{#if commitment}}
+				<h5>Committment Required</h5>
+				{{commitment}}
+			{{/if}}
+
+			{{#if documentation}}
+				<h5>Community Service Documentation</h5>
+				{{documentation}}
+			{{/if}}
+
+			<h5>Contact</h5>
+			{{#if contactName}}{{contactName}}<br />{{/if}}
+			{{#if contactPhone}}{{contactPhone}}<br />{{/if}}
+			{{#if contactEmail}}{{contactEmail}}<br />{{/if}}
+
+		</div>
+	{{/each}}
+
+
+	{{#if internships}}
+		<h4>Internship Opportunities</h4>
+	{{/if}}
+	{{#each internships}}
+		<div style="padding: 0 15px 5px 15px">
+
+			{{#if description}}
+				<h5>Description</h5>
+				{{description}}
+			{{/if}}
+
+			{{#if timeOfYear}}
+				<h5>When Needed</h5>
+				{{timeOfYear}}
+			{{/if}}
+
+			{{#if qualifications}}
+				<h5>Qualifications</h5>
+				{{qualifications}}
+			{{/if}}
+
+			{{#if applicationProcedure}}
+				<h5>Application</h5>
+				{{applicationProcedure}}
+			{{/if}}
+
+			{{#if numberAvailable}}
+				<h5>Number of Interns</h5>
+				{{numberAvailable}}
+			{{/if}}
+
+			{{#if housingProvided}}
+				<h5>Housing Provided</h5>
+				{{housingProvided}}
+			{{/if}}
+
+			{{#if paid}}
+				<h5>Paid</h5>
+				{{paid}}
+			{{/if}}
+			
+			{{#if stipend}}
+				<h5>Stipend</h5>
+				{{stipend}}
+			{{/if}}
+			
+			{{#if academicCredit}}
+				<h5>Credit</h5>
+				{{academicCredit}}
+			{{/if}}
+
+			<h5>Contact</h5>
+			{{#if contactName}}{{contactName}}<br />{{/if}}
+			{{#if contactPhone}}{{contactPhone}}<br />{{/if}}
+			{{#if contactEmail}}{{contactEmail}}<br />{{/if}}
+
+		</div>
+	{{/each}}
+
+
+	{{#if facilities}}
+		<h4>General Services</h4>
+		{{#result-list facilities}}{{/result-list}}
+	{{/if}}
+
+	<div style='text-align:center'>
+		<a class="btn btn-primary" style="margin:5px" href="/edit.html?_id={{_id}}"><i class="icon-edit icon-white"></i> Edit Record</a>
+	</div>
+  </div>
+</script>
