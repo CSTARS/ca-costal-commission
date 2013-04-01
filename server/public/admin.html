@@ -20,6 +20,7 @@
 		var CCC = {};
 		$(window).ready(function(){
 			CCC.result.init();
+			CCC.admin.init();
 			
 			$(window).bind('hashchange', function(){
 				_onHashChange();
@@ -87,8 +88,8 @@
 	</div>
 	
 	<div style="text-align:center">
-		<a class="btn btn-primary">Approve</a>
-		<a class="btn btn-danger">Reject</a>
+		<a class="btn btn-primary" id="approve-btn">Approve</a>
+		<a class="btn btn-danger" id="reject-btn">Reject</a>
 		<a class="btn" href="/admin.html">Cancel</a>
 	</div>
 </div>

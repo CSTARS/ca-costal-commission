@@ -60,133 +60,138 @@
 
     {{#if describeLecture}}
 		<h4>Speaker/Lecture Series</h4>
-		<div>{{describeLecture}}</div>
+		<div class="describeLecture">{{describeLecture}}</div>
 	{{/if}}
 
 	{{#if eduDescription}}
 		<h4>Education Programs</h4>
-		<div>{{eduDescription}}</div>
+		<div class="eduDescription">{{eduDescription}}</div>
 	{{/if}}
 
 	{{#if audiences}}
 		<h4>Target Audiences</h4>
-		{{#result-list audiences}}{{/result-list}}
+		<div class="audiences">{{#result-list audiences}}{{/result-list}}</div>
 	{{/if}}
 
 	{{#if languages}}
 		<h4>Other Languages</h4>
-		<div>{{languages}}</div>
+		<div class="languages">{{languages}}</div>
 	{{/if}}
 
 	{{#if in_service}}
 		<h4>In-Service Training</h4>
-		<div>{{in_service}}</div>
+		<div class="in_service">{{in_service}}</div>
 	{{/if}}
 
 	{{#if groupSize}}
 		<h4>Group Size Accommodated</h4>
-		{{groupSize}}
+		<div class="groupSize">{{groupSize}}</div>
 	{{/if}}
 
 	{{#if volunteers}}
 		<h4>Volunteer Opportunities</h4>
 	{{/if}}
+	
 	{{#each volunteers}}
-		<div style="padding: 0 15px 5px 15px">
+		<div style="padding: 0 15px 5px 15px" class="volunteers">
+			{{#oppTitle}}{{/oppTitle}}
 
 			{{#if description}}
 				<h5>Description</h5>
-				{{description}}
+				<div class="volunteers-{{@index}}-description">{{description}}</div>
 			{{/if}}
 
 			{{#if timeOfYear}}
 				<h5>When Needed</h5>
-				{{timeOfYear}}
+				<div class="volunteers-{{@index}}-timeOfYear">{{timeOfYear}}</div>
 			{{/if}}
 
 			{{#if qualifications}}
 				<h5>Qualifications</h5>
-				{{qualifications}}
+				<div class="volunteers-{{@index}}-qualifications">{{qualifications}}</div>
 			{{/if}}
 
 			{{#if commitment}}
 				<h5>Committment Required</h5>
-				{{commitment}}
+				<div class="volunteers-{{@index}}-commitment">{{commitment}}</div>
 			{{/if}}
 
 			{{#if documentation}}
 				<h5>Community Service Documentation</h5>
-				{{documentation}}
+				<div class="volunteers-{{@index}}-documentation">{{documentation}}</div>
 			{{/if}}
 
 			<h5>Contact</h5>
-			{{#if contactName}}{{contactName}}<br />{{/if}}
-			{{#if contactPhone}}{{contactPhone}}<br />{{/if}}
-			{{#if contactEmail}}{{contactEmail}}<br />{{/if}}
+			<div class="volunteers-{{@index}}-contact">
+				{{#if contactName}}{{contactName}}<br />{{/if}}
+				{{#if contactPhone}}{{contactPhone}}<br />{{/if}}
+				{{#if contactEmail}}{{contactEmail}}<br />{{/if}}
+			</div>
 
 		</div>
 	{{/each}}
-
 
 	{{#if internships}}
 		<h4>Internship Opportunities</h4>
 	{{/if}}
 	{{#each internships}}
 		<div style="padding: 0 15px 5px 15px">
+			{{#oppTitle}}{{/oppTitle}}
 
 			{{#if description}}
 				<h5>Description</h5>
-				{{description}}
+				<div class="internships-{{@index}}-description">{{description}}</div>
 			{{/if}}
 
 			{{#if timeOfYear}}
 				<h5>When Needed</h5>
-				{{timeOfYear}}
+				<div class="internships-{{@index}}-timeOfYear">{{timeOfYear}}</div>
 			{{/if}}
 
 			{{#if qualifications}}
 				<h5>Qualifications</h5>
-				{{qualifications}}
+				<div class="internships-{{@index}}-qualifications">{{qualifications}}</div>
 			{{/if}}
 
 			{{#if applicationProcedure}}
 				<h5>Application</h5>
-				{{applicationProcedure}}
+				<div class="internships-{{@index}}-applicationProcedure">{{applicationProcedure}}</div>
 			{{/if}}
 
 			{{#if numberAvailable}}
 				<h5>Number of Interns</h5>
-				{{numberAvailable}}
+				<div class="internships-{{@index}}-numberAvailable">{{numberAvailable}}</div>
 			{{/if}}
 
 			{{#if housingProvided}}
 				<h5>Housing Provided</h5>
-				{{housingProvided}}
+				<div class="internships-{{@index}}-housingProvided">{{housingProvided}}</div>
 			{{/if}}
 
 			{{#if paid}}
 				<h5>Paid</h5>
-				{{paid}}
+				<div class="internships-{{@index}}-housingProvided">{{paid}}</div>
 			{{/if}}
 			
 			{{#if stipend}}
 				<h5>Stipend</h5>
-				{{stipend}}
+				<div class="internships-{{@index}}-stipend">{{stipend}}</div>
 			{{/if}}
 			
 			{{#if academicCredit}}
 				<h5>Credit</h5>
-				{{academicCredit}}
+				<div class="internships-{{@index}}-academicCredit">{{academicCredit}}</div>
 			{{/if}}
 
 			<h5>Contact</h5>
-			{{#if contactName}}{{contactName}}<br />{{/if}}
-			{{#if contactPhone}}{{contactPhone}}<br />{{/if}}
-			{{#if contactEmail}}{{contactEmail}}<br />{{/if}}
+			<div class="internships-{{@index}}-contact">
+				{{#if contactName}}{{contactName}}<br />{{/if}}
+				{{#if contactPhone}}{{contactPhone}}<br />{{/if}}
+				{{#if contactEmail}}{{contactEmail}}<br />{{/if}}
+			</div>
 
 		</div>
 	{{/each}}
-
 
 	{{#if facilities}}
 		<h4>General Services</h4>

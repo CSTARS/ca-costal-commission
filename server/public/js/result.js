@@ -27,6 +27,12 @@ Handlebars.registerHelper('volunteers.phone', function() {
 	  return CCC.search.formatPhone(this.phone);
 });
 
+Handlebars.registerHelper('oppTitle', function(items, options) {
+	  return "<h4>Opportunity #"+(items.data.index+1)+"</h4>";
+});
+
+
+
 
 CCC.result = (function() {
 	
@@ -35,18 +41,32 @@ CCC.result = (function() {
 	var loaded = false;
 	var waiting = null;
 	
+	var loadHandlers = [];
+	
 	function init() {
 		$('#result').load('/result.handlebars', function() {
 			var source = $("#result-template").html();
 			resultTemplate = Handlebars.compile(source);
 			
 			loaded = true;
+			
 			if( waiting != null ) updateResult(waiting);
+			
+			for( var i = 0; i < loadHandlers.length; i++ ) {
+				var f = loadHandlers[i];
+				f();
+			}
 		});
 		
 		$(window).bind('result-update-event', function(e, result){
 			updateResult(result);
 		});
+	}
+	
+	// fires when template is loaded
+	function onLoad(handler) {
+		if( resultTemplate == null ) loadHandlers.push(handler);
+		else handler();
 	}
 	
 	function updateResult(result) {
@@ -97,7 +117,8 @@ CCC.result = (function() {
 	return {
 		init : init,
 		updateResult : updateResult,
-		getResultHtml : getResultHtml
+		getResultHtml : getResultHtml,
+		onLoad : onLoad
 	}
 	
 })();

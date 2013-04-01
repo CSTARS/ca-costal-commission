@@ -129,12 +129,14 @@ exports.editForm = {
         {
             caption : "Submitter's email:",
             type    : "email",
-            id      : "submitterEmail"
+            id      : "submitterEmail",
+            required : true
         },
         {
             caption : "Organization name:",
             type    : "text",
-            id      : "organization"
+            id      : "organization",
+            required : true
         },
         {
         	type    : "subform",
@@ -498,7 +500,7 @@ exports.editForm = {
         {
             "type" : "btn",
             "class" : "btn-primary",
-            "value" : "Save",
+            "value" : "Submit",
             "id"    : "save"
         },
         {

@@ -10,7 +10,9 @@ exports.bootstrap = function(server) {
 	var db = server.mqe.getDatabase();
 	
 	var collection;
-	var editCollection
+	var editCollection;
+	var cacheCollection;
+	
 	db.collection(config.db.mainCollection, function(err, coll) { 
 		if( err ) return console.log(err);
 
@@ -21,6 +23,12 @@ exports.bootstrap = function(server) {
 		if( err ) return console.log(err);
 
 		editCollection = coll;
+	});
+	
+	db.collection(config.db.cacheCollection, function(err, coll) { 
+		if( err ) return console.log(err);
+
+		cacheCollection = coll;
 	});
 	
 	// get the results of a query
@@ -45,8 +53,10 @@ exports.bootstrap = function(server) {
 		var data = req.body;
 		if( !data ) return res.send({error:true,message:"no data"});
 		
-		data.currentId = data._id;
-		delete data._id;
+		if( data._id ) {
+			data.currentId = data._id;
+			delete data._id;
+		}
 		
 		var d = new Date();
 		data.dateEntered = (d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
@@ -60,7 +70,7 @@ exports.bootstrap = function(server) {
 	// admin only
 	// get all edits
 	server.app.get('/rest/allEdits', function(req, res){
-		editCollection.find({},{organization:1,submitterName:1,dateEntered:1}).sort({organization:1,submitterName:1}).toArray(function(err, items) {
+		editCollection.find({},{organization:1,submitterName:1,dateEntered:1,currentId:1}).sort({organization:1,submitterName:1}).toArray(function(err, items) {
 			if( err ) res.send({error:true,message:err});
 			else res.send({items: items});
 		});
@@ -72,6 +82,66 @@ exports.bootstrap = function(server) {
 		if( !id ) return res.send({error:true,message:"no id provided"});
 		
 		editCollection.find({_id: ObjectId(id)}).toArray(function(err, result){
+			if( err ) res.send({error:true,message:err});
+			res.send(result[0]);
+		});
+	});
+	
+	server.app.get('/rest/approveEdit', function(req, res){
+		
+		var id = req.query._id;
+		if( !id ) return res.send({error:true,message:"no id provided"});
+		
+		editCollection.find({_id: ObjectId(id)}).toArray(function(err, result){
+			if( err ) res.send({error:true,message:err});
+			if( result.length < 0 ) res.send({error:true,message:"no edits with this id"});
+			
+			var newRecord = result[0];
+			var recordId = newRecord.currentId;
+			
+			// clean up
+			delete newRecord._id;
+			delete newRecord.currentId;
+			
+			// clear cache
+			cacheCollection.remove(function(err, result){
+				if( err ) return res.send({error:true,message:err});
+				res.send({success:true});
+			});
+			
+			// is edit
+			if( recordId ) { 
+				collection.update({_id: ObjectId(recordId)}, newRecord, function(err, result){
+					if( err ) return res.send({error:true,message:err});
+					
+					// remove old record
+					editCollection.remove({_id: ObjectId(id)}, function(err, result){
+						if( err ) return res.send({error:true,message:err});
+						res.send({success:true});
+					});
+				});
+			} else {
+
+				collection.insert(newRecord, {w:1}, function(err, result){
+					if( err ) return res.send({error:true,message:err});
+					
+					// remove old record
+					editCollection.remove({_id: ObjectId(id)}, function(err, result){
+						if( err ) return res.send({error:true,message:err});
+						res.send({success:true});
+					});
+				});
+			}
+		});
+		
+
+	});
+	
+	server.app.get('/rest/rejectEdit', function(req, res){
+		var id = req.query._id;
+		if( !id ) return res.send({error:true,message:"no id provided"});
+		
+		editCollection.remove({_id: ObjectId(id)}, function(err, result){
 			if( err ) res.send({error:true,message:err});
 			res.send(result[0]);
 		});

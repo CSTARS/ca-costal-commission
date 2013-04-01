@@ -58,6 +58,21 @@
 	color       : #888;
 }
 
+del {
+	color : #b94a48;
+	border-radius : 5px;
+	-moz-border-radius : 5px;
+	-webkit-border-radius : 5px;
+}
+
+ins {
+	color : #468847;
+	
+	border-radius : 5px;
+	-webkit-border-radius : 5px;
+	-moz-border-radius : 5px;
+}
+
 /****
  * Google Form Styling
  ****/
