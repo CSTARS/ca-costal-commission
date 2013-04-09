@@ -1,4 +1,4 @@
-
+var tokenConfig = require("../tokens.js");
 exports.debug = true;
 
 exports.db = {
@@ -36,8 +36,21 @@ exports.db = {
 	                   "Notes"],
 	
 	// local script to be fired when update is called via admin api call
-	importScript    : "/Users/jrmerz/dev/ceres/ca-costal-commission/server/import.js"
+	importScript    : "/Users/jrmerz/dev/ceres/ca-costal-commission/server/import.js",
 		
+}
+
+//auth server information
+exports.auth = {
+		script            : "/Users/jrmerz/dev/ceres/ceres-auth-node/auth",
+		token             : tokenConfig.token,
+		centralAuthServer : "http://localhost:4000",
+		appName           : "CCC Dev",
+		twitter           : tokenConfig.twitter,
+		facebook          : tokenConfig.facebook,
+		
+		// do accounts require approval?
+		requireApproval   : false
 }
 
 exports.server = {

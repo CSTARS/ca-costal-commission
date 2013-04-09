@@ -1,10 +1,20 @@
 <html>
 <head>
 	<title>CCC Login Page</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
 	<a href="/auth/google">Sign In with Google</a> | 
 	<a href="/auth/facebook">Sign In with Facebook</a> | 
 	<a href="/auth/twitter">Sign in with Twitter</a>
+	
+	<div id="form">
+		<div>Sign in with Ceres Account</div>
+		Email <input type="text" id="username" /><br />
+		Password <input type="password" id="password" /><br />
+		<a class="btn" id="">Login</a>
+		| <a class="btn btn-link">Create Account</a>
+		<div id="msg"></div>
+	</div>
 </body>
 </html>

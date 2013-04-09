@@ -2,8 +2,15 @@
  * This will actually extend the MQE expressjs server
  */
 var config = require("./config");
-var auth = require("./auth");
+//var auth = require("./auth");
 var ObjectId = require('mongodb').ObjectID;
+
+// include auth model
+var auth;
+if( config.authServer ) {
+	auth = require(config.authServer);
+}
+ 
 
 // express app
 exports.bootstrap = function(server) {
@@ -30,6 +37,8 @@ exports.bootstrap = function(server) {
 
 		cacheCollection = coll;
 	});
+	
+	
 	
 	// get the results of a query
 	server.app.get('/rest/allOrgs', function(req, res){
@@ -149,6 +158,7 @@ exports.bootstrap = function(server) {
 	
 	server.app.use("/", server.express.static(__dirname+"/public"));
 	
-	auth.init(server);
+	// set the auth endpoints
+	if( config.auth ) auth.init(server.app, server.passport, config);
 	
 };
