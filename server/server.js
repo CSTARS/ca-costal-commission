@@ -1,5 +1,9 @@
 /**
  * This will actually extend the MQE expressjs server
+ * 
+ * make sure mongo is fired up w/ text search enabled
+ * mongod --setParameter textSearchEnabled=true
+ * 
  */
 var config = require("./config");
 //var auth = require("./auth");
@@ -7,8 +11,8 @@ var ObjectId = require('mongodb').ObjectID;
 
 // include auth model
 var auth;
-if( config.authServer ) {
-	auth = require(config.authServer);
+if( config.auth ) {
+	auth = require(config.auth.script);
 }
  
 
@@ -62,13 +66,15 @@ exports.bootstrap = function(server) {
 		var data = req.body;
 		if( !data ) return res.send({error:true,message:"no data"});
 		
+		var d = new Date();
 		if( data._id ) {
 			data.currentId = data._id;
 			delete data._id;
+		} else {
+			data.dateEntered = (d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
 		}
 		
-		var d = new Date();
-		data.dateEntered = (d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
+		data.lastModified = (d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
 		
 		editCollection.insert(data, {w :1}, function(err, result) {
 			if( err ) return res.send({error:true,message:"failed to insert"});

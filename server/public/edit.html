@@ -123,11 +123,36 @@ function onFormReady(options) {
 			success : function(data) {
 				options.data = data;
 				Ceres.forms.generate(options);
+				setLastModified(data);
+				
+				// make sure one contact is open and can't be removed
+				$("#form-root-contactInfo-0-remove").remove();
 			}
 		});
 	} else {
 		Ceres.forms.generate(options);
+	
+		// make sure one contact is open and can't be removed
+		$("#subform-add-form-root-contactInfo").trigger('click');
+		$("#form-root-contactInfo-0-remove").remove();
 	}
+}
+
+//set the static last modified date
+function setLastModified( data ) {
+	var lastModified = "";
+	
+	if( data ) {
+		lastModified = data.lastModified;
+		if( !lastModified ) lastModified = data.dateEntered;
+	} 
+	
+	if( !lastModified || lastModified == "") {
+		var d = new Date();
+		lastModified = (d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
+	}
+		
+	$("#last-modified-date").html("<b>Last Modified:</b> "+lastModified);
 }
 
 // set get vars

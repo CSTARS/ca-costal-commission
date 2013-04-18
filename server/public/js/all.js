@@ -28,7 +28,7 @@ CCC.all = (function() {
 		_addToNav(nav, firstChar);
 		
 		for( var i = 1; i < data.length; i++ ) {
-			li = $("<li><a href='/#result/"+data[i]._id+"'>"+data[i].Organization+"</a></li>");
+			li = $("<li><a href='/#result/"+data[i]._id+"'>"+data[i].organization+"</a></li>");
 			
 			if( _getFirstChar(data[i]) == firstChar ) {
 				list.append(li);
@@ -56,13 +56,19 @@ CCC.all = (function() {
 	}
 	
 	function _addHeader(panel, firstChar) {
-		panel.append($("<div class='page-header'><h5 id='all-title-"+firstChar+"'>"+firstChar+"</h5></div>"));
+		var header = $("<div class='page-header'></div>");
+		var title = $("<h5 id='all-title-"+firstChar+"'>"+firstChar+"</h5>");
+		var top = $("<a class='pull-right' style='color:#157ab5;cursor:pointer'><i class='icon-arrow-up'></i> top</a>").on('click', function(){
+			$('body').animate({scrollTop : 0},'slow');
+		});
+		
+		panel.append(header.append(title.prepend(top)));
 	}
 	
 	
 	function _getFirstChar(item) {
-		if( !item.Organization ) return "";
-		return item.Organization.toUpperCase().substring(0, 1);
+		if( !item.organization ) return "";
+		return item.organization.toUpperCase().substring(0, 1);
 	}
 	
 	return {

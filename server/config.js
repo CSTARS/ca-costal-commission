@@ -1,4 +1,4 @@
-var tokenConfig = require("../tokens.js");
+var tokenConfig = require("/Users/jrmerz/dev/ceres/tokens.js");
 exports.debug = true;
 
 exports.db = {
@@ -91,20 +91,24 @@ exports.editForm = {
    html : [
         {
             type : "h3",
-            html : "Marine, Coastal & Watershed Resource Directory"
+            html : "Creeks to Coast Directory"
         },
         {
             type : "div",
-            html : "Thank you for your interest in participating in the Resource Directory. " +
-            		 "Please complete the fields applicable to your organization, as completely " +
-            		 "as possible. Your entry will be reviewed for approval and inclusion in the " +
-            		 "Directory.  Organizations are listed for information purposes only and their " +
-            		 "listing does not indicate Coastal Commission support of the policies or programs " +
-            		 "of the organizations. "
+            html : "Thank you for being a part of the Creeks to Coast Directory. The purpose of this " +
+            		"page is to update and correct existing entries in the directory. This is primarily " +
+            		"for use by representatives of the organization, however if you are a member of the " +
+            		"public and find an error, please submit your edit for review.<br /><br />" +
+            		"Please edit the following fields as necessary. Your edits will be reviewed for " + 
+            		"approval in the directory. Organizations are listed for..."
         },
         {
         	type : "div",
         	html : "<div style='color:red;margin-bottom:25px'>* required</div>"
+        },
+        {
+        	type : "div",
+        	html : "<div style='margin:25px 0' id='last-modified-date'></div>"
         },
         {
             caption  : "This organization is not for profit.",
@@ -154,7 +158,7 @@ exports.editForm = {
         {
         	type    : "subform",
         	id      : "contactInfo",
-        	caption : "Contact Information",
+        	caption : "Organization Contact Information",
         	form    : [
 				{
 				    caption : "Organization Address:",
@@ -221,10 +225,11 @@ exports.editForm = {
             name     : "geoFocus"
         },
         {
-            caption : "County(ies) in which organization is active:",
-            help    : "View a map of California counties at <a href='http://quickfacts.census.gov/qfd/maps/california_map.html' target='_blank'>http://quickfacts.census.gov/qfd/maps/california_map.html</a>",
-            type    : "textarea",
-            id      : "counties"
+            caption  : "County(ies) in which organization is active:",
+            help     : "View a map of California counties at <a href='http://quickfacts.census.gov/qfd/maps/california_map.html' target='_blank'>http://quickfacts.census.gov/qfd/maps/california_map.html</a>",
+            required : true,
+            type     : "textarea",
+            id       : "counties"
         },
         {
         	caption  : "Topic(s) addressed by organization:",
