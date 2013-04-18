@@ -1,4 +1,4 @@
-var tokenConfig = require("/Users/jrmerz/dev/ceres/tokens.js");
+var tokenConfig = require("/etc/mqe/tokens.js");
 exports.debug = true;
 
 exports.db = {

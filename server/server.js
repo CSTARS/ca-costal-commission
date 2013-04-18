@@ -5,8 +5,8 @@
  * mongod --setParameter textSearchEnabled=true
  * 
  */
-var config = require("./config");
-//var auth = require("./auth");
+var config = require(process.argv[2]);
+
 var ObjectId = require('mongodb').ObjectID;
 
 // include auth model
