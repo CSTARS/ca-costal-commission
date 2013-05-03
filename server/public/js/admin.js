@@ -7,7 +7,8 @@ CCC.admin = (function(){
 	// top tier objects to compare
 	var compareArray = ["website", "mission", "orgType", "contact", "geoFocus",
 	                    "counties","activities", "topics", "eduResources", "describeLecture",
-	                    "eduDescription", "audiences", "languages", "in_service", "groupSize"];
+	                    "eduDescription", "audiences", "languages", "in_service", "groupSize",
+	                    "altLanguageMaterials", "altLanguageResources"];
 	
 	// nested elements to compare
 	var compareNestedArray = {
@@ -71,7 +72,7 @@ CCC.admin = (function(){
 					// create table
 					var tableHtml = '<table class="table table-hover">' +
 					 				'<thead><tr><th>Organization</th><th>Submitter</th>' +
-					 				'<th>Date Entered</th></tr></thead>';
+					 				'<th>Modified</th></tr></thead>';
 					 				
 					for( var i = 0; i < resp.items.length; i++ ) {
 						var item = resp.items[i];
@@ -81,7 +82,7 @@ CCC.admin = (function(){
 						
 						tableHtml += '<tr id="'+item._id+'"><td>'+item.organization+" - "+type+'</td>' +
 									  '<td>'+item.submitterName+'</td>' +
-									  '<td>'+item.dateEntered+'</td></tr>';
+									  '<td>'+(item.lastModified ? item.lastModified : item.dateEntered )+'</td></tr>';
 					}
 					$("#submissions").html(tableHtml+'</table>');
 					

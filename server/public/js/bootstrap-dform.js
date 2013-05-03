@@ -200,7 +200,18 @@ Ceres.forms = (function(){
 	function _addSchemaOptions(eles, schema) {
 		for(var i = 0; i < eles.length; i++ ) {
 			if( eles[i].options == "schema" && schema[eles[i].id] ) {
-				var arr = schema[eles[i].id];
+				var arr = schema[eles[i].id].sort();
+				
+				// if array has __*__ remove and push to end
+				var tmpArr = [];
+				for( var j = 0; j < arr.length; j++ ) {
+					if( arr[j].match(/__.*__/) ) tmpArr.push(arr[j]);
+				}
+				for( var j = 0; j < tmpArr; j++ ) {
+					arr.splice(arr.indexOf(tmpArr),1);
+					arr.push(tmpArr[j]);
+				}
+				
 				var options = {};
 				for( var j = 0; j < arr.length; j++ ) {
 					options[arr[j]] = arr[j];

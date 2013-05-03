@@ -17,7 +17,7 @@ exports.db = {
 	
 	// Filters yours site uses, these will be returned in the results
 	// MQE will also use this list to make sure indexes are built on these items
-	indexedFilters  : ["counties","topics","eduResources", "audiences"],
+	indexedFilters  : ["contactInfo.county", "counties","topics","eduResources", "audiences"],
 	
 	// currently MQE only allows one sort option, place the attribute you wish to sort on here
 	sortBy          : "organization",
@@ -34,6 +34,9 @@ exports.db = {
 	                   "fees", "feesDescription",  "parkingAvailability", "parking", 
 	                   "publicTransitAccess", "publicTransit", "disabledAccess", "disabledAccess", 
 	                   "Notes"],
+	                 
+	// attributes that are stored but will never be returned to a default search/get request
+	blacklist       : ["submitterName", "submitterEmail", "submitterPhone"],
 	
 	// local script to be fired when update is called via admin api call
 	importScript    : "/Users/jrmerz/dev/ceres/ca-costal-commission/server/import.js",
@@ -64,26 +67,28 @@ exports.server = {
 exports.schema = {
  	   orgType  : ["Government", "Non-profit", "School/University", "Citizen Group", "__Other__" ],
 	   geoFocus   : ["Local", "Regional", "State", "National", "International"],
-	   topics     : ["Wetlands","Aquaculture","Cultural History","Kelp Forest","Islands","Beaches",
-	                 "Rocky Intertidal","Wildlife","Energy","Watersheds/Hydrology","Habitat Restoration",
-	                 "Endangered Species","Water Quality/Storm Water Runoff","Bay & Estuary Habitats",
-	                 "Coastal Access","Boating","Marine/Estuary Reserves & Sanctuaries",
-	                 "Environmental Justice","Open Ocean","Sand Dune Habitats","Fisheries",
-	                 "Coastal Processes","__Other__"],
-	   activities : ["Research","Education","Recycling","Enforcement","Advocacy","Policy","Conservation",
-	                 "Tourism","Recreation","Commercial","Restoration","Regulation","Water Monitoring",
-	                 "Resource Management","Water Pollution Prevention","__Other__"],
-	   eduResources : ["Curriculum","Activity/Learning Kit","Posters","Maps","Program(s) at Schools",
-	                   "Program(s) at our Location","Guided Walks","Field Trip","Nature Trails","Events",
-	                   "Publications","Newsletter","Brochures","Guidebooks","Exhibits/Displays","Multimedia",
-	                   "Online Resources","Library/Lending Materials","Interpretive Center",
+	   topics     : ["Aquaculture", "Bay & Estuary Habitats", "Beaches", "Boating", "Climate Change", 
+	                 "Coastal Access", "Coastal Processes", "Cultural History", "Endangered Species", 
+	                 "Energy", "Environmental Justice", "Fisheries", "Habitat Restoration", 
+	                 "Invasive Species", "Islands", "Kelp Forest", "Marine Debris", 
+	                 "Marine/Estuary Reserves & Sanctuaries", "Ocean Literacy", "Open Ocean", 
+	                 "Rocky Intertidal", "Sand Dune Habitats", "Water Quality/Storm Water Runoff", 
+	                 "Watersheds/Hydrology", "Wetlands", "Wildlife","__Other__"],
+	   activities : ["Advocacy", "Conservation", "Education", "Enforcement", "Policy", "Recreation", 
+	                 "Recycling", "Regulation", "Research", "Resource Management", "Restoration", 
+	                 "Shoreline Cleanups", "Tourism", "Water Monitoring", "Water Pollution Prevention",
+	                 "__Other__"],
+	   eduResources : ["Activity/Learning Kit", "Brochures", "Curriculum", "Exhibits/Displays", 
+	                   "Field Trips", "Guidebooks", "Guided Walks", "Library/Lending Materials", 
+	                   "Maps", "Multimedia", "Nature Trails", "Newsletter", "Posters", 
+	                   "Program(s) at our Location", "Program(s) at Schools", "Publications", 
 	                   "Speaker and/or Lecture Series","__Other__"],
-	   audiences    : ["Grades preK-3","Grades 4-6","Grades 7-9","Grades 10-12","Adult","Teacher",
-	                   "University Students","Informal Educators","General Public","__Other__"],
+	   audiences    : ["Grades preK-3","Grades 4-6","Grades 7-9","Grades 10-12","Adults","Teachers",
+	                   "Informal Educators","Policy Makers","General Public","__Other__"],
 	   groupSize    : ["Up to 30", "Up to 60", "Up to 100","No limit"],
 	   altLanguageMaterials : ["Written material", "Oral presentations", "Multimedia resources"],
-	   training     : ["Teachers","Volunteers","Naturalist","Students/Interns","General Public","PolicyMakers"],
-	   facilities   : ["Restrooms","Picnic Area","Bookstore/Gift Shop","Telephone"]
+	   training     : ["Teachers","Volunteers","Naturalist","General Public","Policy Makers"],
+	   facilities   : ["Restrooms","Picnic Area","Bookstore/Gift Shop"]
 }
 
 // dform options
@@ -255,6 +260,11 @@ exports.editForm = {
             caption : "List title(s) and brief narrative descriptions of education programs and materials you offer (or refer to the appropriate page on your website):",
             type    : "textarea",
             id      : "eduDescription"
+        },
+        {
+            caption : "Speaker/Lecture series description:",
+            type    : "textarea",
+            id      : "describeLecture"
         },
         {
         	caption  : "Target audience:",

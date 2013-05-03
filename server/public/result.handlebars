@@ -77,6 +77,16 @@
 		<h4>Other Languages</h4>
 		<div class="languages">{{languages}}</div>
 	{{/if}}
+	
+	{{#if altLanguageMaterials}}
+		<h4>Other Languages Materials</h4>
+		<div class="altLanguageMaterials">{{#result-list altLanguageMaterials}}{{/result-list}}</div>
+	{{/if}}
+
+	{{#if altLanguageResources}}
+		<h4>Description of non-English resource(s)</h4>
+		<div class="altLanguageResources">{{altLanguageResources}}</div>
+	{{/if}}
 
 	{{#if in_service}}
 		<h4>In-Service Training</h4>

@@ -22,16 +22,16 @@ CCC.search = (function() {
 	// static filters
 	// these are boolean checkboxes that always show
 	var staticFilters = {
-			Volunteer : {
-				filter : { Volunteer : { $exists: true, $not : { $size : 0 }  }},
+			volunteers : {
+				filter : { volunteers : { $exists: true, $not : { $size : 0 }  }},
 				label: "Volunteer Opportunities"
 			},
-			Intern : {
-				filter :  { Intern : { $exists: true, $not : { $size : 0 }  }},
+			internships : {
+				filter :  { internships : { $exists: true, $not : { $size : 0 }  }},
 				label : "Internship Opportunities"
 			},
-			alt_language_materials : {
-				filter : {alt_language_materials : { $exists: true, $not : { $size : 0 } }},
+			altLanguageMaterials : {
+				filter : {altLanguageMaterials : { $exists: true, $not : { $size : 0 } }},
 				label : "Non-English resources"
 			}
 	};
@@ -116,18 +116,30 @@ CCC.search = (function() {
 		panel.append($('<li class="nav-header">Narrow Your Search</li>'));
 		panel.append($('<li class="divider"></li>'));
 		
+		// first, get sorted filter list ... by nice name
+		var list = [];
+		for( var key in results.filters ) {
+			list.push({key:key, label: CCC.labels.filters[key] ? CCC.labels.filters[key] : key});
+		}
+		list.sort(function(a, b){
+			if( a.label < b.label ) return -1;
+			if( a.label > b.label ) return 1;
+			return 0;
+		});
 		
 
 		// add filter blocks
 		var c = 0;
-		for( var key in results.filters ) {
-			var label = CCC.labels.filters[key] ? CCC.labels.filters[key] : key;
+		for( c = 0; c < list.length; c++ ) {
+			var key = list[c].key;
+			var label = list[c].label;
+			var safeKey = key.replace(/\./,'___');
 			
-			var title = $("<li><a id='filter-block-title-"+key+"' class='search-block-title'>"+label+"</a></li>");
+			var title = $("<li><a id='filter-block-title-"+safeKey+"' class='search-block-title'>"+label+"</a></li>");
 			
 			var display = "";
 			if( openFilters.indexOf(key) > -1 ) display = "style='display:block'" 
-			var block = $("<ul id='filter-block-"+key+"' class='filter-block' "+display+"></ul>");
+			var block = $("<ul id='filter-block-"+safeKey+"' class='filter-block' "+display+"></ul>");
 			
 			for( var i = 0; i < results.filters[key].length; i++ ) {
 				var item = results.filters[key][i];
@@ -143,7 +155,6 @@ CCC.search = (function() {
 			
 			title.append(block);
 			panel.append(title);
-			c++;
 		}
 		
 		if( c == 0 ) {

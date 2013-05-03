@@ -8,7 +8,7 @@ var joinId = "OrgID";
 var contactId = "ContactID";
 var files = ["TblCounties","TblCountiesList","TblIntern","TblMain", "TblContactEmails",
              "TblPhone","TblSlideShow","TblVideos","TblVolunteer", "TblContactInfo",
-             "TblContactName", "OfficeLocations"];
+             "TblContactName", "officeLocations"];
 var fileData = {};
 
 var tableMap = {
@@ -23,7 +23,7 @@ var tableMap = {
 		TblVolunteer : "volunteers",
 		TblContactInfo : "contactInfo",
 		TblContactName : "contactName",
-		OfficeLocations : "officeLocations"
+		officeLocations : "officeLocations"
 }
 
 // these are attributes that should be joined, the csv's have them listed out
@@ -245,7 +245,9 @@ function parseFiles(callback) {
 	for( var i = 0; i < files.length; i++ ) {
 		parseFile(files[i], function(){
 			parsedFiles++;
-			if( parsedFiles == files.length ) callback();
+			if( parsedFiles == files.length ) {
+				callback();
+			}
 		});
 	}
 }
@@ -288,6 +290,10 @@ function map(file, record) {
 	
 	if( record[joinId] ) newRecord[joinId] = record[joinId];
 	if( record[contactId] ) newRecord[contactId] = record[contactId];
+	
+	if( file == "officeLocations")  {
+		return record;
+	}
 	
 	// map keys
 	if( attrMap[file] ) {
@@ -382,7 +388,7 @@ function joinAttribute(joinAttr, attr, value, table) {
 			
 			// link external tables
 			if( attr == 'contactInfo' ) {
-				linkContactInfo(value);
+				linkContactInfo(value, table[i].organization);
 			}
 			
 			if( attr == 'counties' ) {
@@ -396,7 +402,7 @@ function joinAttribute(joinAttr, attr, value, table) {
 	}
 }
 
-function linkContactInfo(contact) {
+function linkContactInfo(contact, orgName) {
 	// get the phone an extension
 	var phones = fileData['TblPhone'];
 	for( var i = 0; i < phones.length; i++ ) {
@@ -422,10 +428,12 @@ function linkContactInfo(contact) {
 		}
 	}
 	
-	var counties = fileData['OfficeLocations'];
+	var counties = fileData['officeLocations'];
 	for( var i = 0; i < counties.length; i++ ) {
-		if( counties[i][contactId] == contact[contactId] ) {
-			contact.county = names[i].county;
+		if( counties[i]["Organization"] == orgName ) {
+			contact.county = counties[i].County1;
+			counties.splice(i,1);
+			break;
 		}
 	}
 	
@@ -436,6 +444,8 @@ exports.getData = function(callback) {
 	parseFiles(function(){
 		mergeTables();
 		
+		console.log("Unmatched Counties: ");
+		console.log(fileData['officeLocations']);
 		callback(fileData[mainTable]);
 	});
 }

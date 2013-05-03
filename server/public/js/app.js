@@ -60,25 +60,27 @@ CCC.data.counties = ["Alameda", "Alpine", "Amador", "Butte", "Calaveras", "Colus
                      "Tuolumne", "Ventura", "Yolo", "Yuba"];
 
 CCC.data.topics = ["Aquaculture", "Bay & Estuary Habitats", "Beaches", "Boating", "Climate Change", 
-                   "Coastal Access", "Coastal Processes", "Cultural History", "Endangered Species", 
-                   "Energy", "Environmental Justice", "Fisheries", "Habitat Restoration", "Invasive Species", 
-                   "Islands", "Kelp Forest", "Marine Debris", "Marine/Estuary Reserves & Sanctuaries", 
-                   "Ocean Literacy", "Open Ocean", "Rocky Intertidal", "Sand Dune Habitats", 
-                   "Water Quality/Storm Water Runoff", "Watersheds/Hydrology", "Wetlands", "Wildlife"];
+	                 "Coastal Access", "Coastal Processes", "Cultural History", "Endangered Species", 
+	                 "Energy", "Environmental Justice", "Fisheries", "Habitat Restoration", 
+	                 "Invasive Species", "Islands", "Kelp Forest", "Marine Debris", 
+	                 "Marine/Estuary Reserves & Sanctuaries", "Ocean Literacy", "Open Ocean", 
+	                 "Rocky Intertidal", "Sand Dune Habitats", "Water Quality/Storm Water Runoff", 
+	                 "Watersheds/Hydrology", "Wetlands", "Wildlife"];
 
-CCC.data.edu_types = ["Activity/Learning Kit", "Brochures", "Curriculum", "Exhibits/Displays", 
-                      "Field Trips", "Guidebooks", "Guided Walks", "Library/Lending Materials", "Maps", 
-                      "Multimedia", "Nature Trails", "Newsletter", "Posters", 
-                      "Program(s) at our Location", "Program(s) at Schools", "Publications", 
-                      "Speaker and/or Lecture Series"];
+CCC.data.eduResources = ["Activity/Learning Kit", "Brochures", "Curriculum", "Exhibits/Displays", 
+	                   "Field Trips", "Guidebooks", "Guided Walks", "Library/Lending Materials", 
+	                   "Maps", "Multimedia", "Nature Trails", "Newsletter", "Posters", 
+	                   "Program(s) at our Location", "Program(s) at Schools", "Publications", 
+	                   "Speaker and/or Lecture Series"];
 
-CCC.data.target = ["Grades preK-3", "Grades 4-6", "Grades 7-9", "Grades 10-12", "Adults", "Teachers", 
-                   "Informal Educators", "Policy Makers", "General Public"];
+CCC.data.audiences = ["Grades preK-3","Grades 4-6","Grades 7-9","Grades 10-12","Adults","Teachers",
+	                   "Informal Educators","Policy Makers","General Public"];
 
 CCC.labels = {};
 CCC.labels.filters = {
-	"topics"           : "Topics",
-	"eduResources"    : "Educational Resources",
-	"counties"         : "County Active in",
-	"audiences"    : "Target Audience"
+	"topics"                : "Topics",
+	"eduResources"          : "Educational Resources",
+	"counties"              : "County - Active In",
+	"audiences"             : "Target Audience",
+	"contactInfo.county"    : "County - Office Located"
 };

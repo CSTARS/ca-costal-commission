@@ -85,7 +85,7 @@ exports.bootstrap = function(server) {
 	// admin only
 	// get all edits
 	server.app.get('/rest/allEdits', function(req, res){
-		editCollection.find({},{organization:1,submitterName:1,dateEntered:1,currentId:1}).sort({organization:1,submitterName:1}).toArray(function(err, items) {
+		editCollection.find({},{organization:1,submitterName:1,dateEntered:1,lastModified:1,currentId:1}).sort({organization:1,submitterName:1}).toArray(function(err, items) {
 			if( err ) res.send({error:true,message:err});
 			else res.send({items: items});
 		});

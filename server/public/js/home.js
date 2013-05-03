@@ -3,18 +3,19 @@ CCC.home = (function(){
 	
 	function init() {
 		
-		$("#org-by-office-county").append(_createLists(CCC.data.counties, 'Counties'));
+		$("#org-by-office-county").append(_createLists(CCC.data.counties, 'contactInfo.county'));
 		
-		$("#org-by-active-county").append(_createLists(CCC.data.counties, 'Counties'));
+		$("#org-by-active-county").append(_createLists(CCC.data.counties, 'counties'));
 		
 		$("#org-by-topic").append(_createLists(CCC.data.topics, 'topics'));
 		
-		$("#org-by-edu_type").append(_createLists(CCC.data.edu_types, 'edu_resources'));
+		$("#org-by-edu_type").append(_createLists(CCC.data.eduResources, 'eduResources'));
 		
-		$("#org-by-target").append(_createLists(CCC.data.target, 'target_audiences'));
+		$("#org-by-target").append(_createLists(CCC.data.audiences, 'audiences'));
 	}
 	
 	function _createLists(data, f) {
+		data.sort();
 		var lists = [$("<ul />"), $("<ul />"), $("<ul />")];
 		
 		var mod = data.length % 3;
