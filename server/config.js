@@ -48,19 +48,26 @@ exports.auth = {
 		script            : "/Users/jrmerz/dev/ceres/ceres-auth-node/auth",
 		token             : tokenConfig.token,
 		centralAuthServer : "http://localhost:4000",
-		appName           : "CCC Dev",
+		appName           : "CCCDev",
 		twitter           : tokenConfig.twitter,
 		facebook          : tokenConfig.facebook,
+		
+		// these pages will require login and admin role
+		adminPages        : ["admin.html"],
 		
 		// do accounts require approval?
 		requireApproval   : false
 }
 
 exports.server = {
+	// local config
 	host : "localhost",
-	
 	port : 3000,
 	
+	// remote hosts that are allowed to access this sites mqe
+	allowedDomains : ["testnode.com","localhost"],
+	
+	// server script
 	script : "/Users/jrmerz/dev/ceres/ca-costal-commission/server/server.js"
 }
 
@@ -104,8 +111,8 @@ exports.editForm = {
             		"page is to update and correct existing entries in the directory. This is primarily " +
             		"for use by representatives of the organization, however if you are a member of the " +
             		"public and find an error, please submit your edit for review.<br /><br />" +
-            		"Please edit the following fields as necessary. Your edits will be reviewed for " + 
-            		"approval in the directory. Organizations are listed for..."
+            		"Organizations are listed for information purposes only and their listing does " +
+            		"not indicate Coastal Commission support of the policies or programs of the organizations."
         },
         {
         	type : "div",

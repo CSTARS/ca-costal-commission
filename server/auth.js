@@ -4,6 +4,7 @@
 var GoogleStrategy = require('passport-google').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
+var request = require('request');
 // setup the google strategy
 
 var rootUrl = "http://auth.cstars.ucdavis.edu:3000";
@@ -13,6 +14,7 @@ var users = {};
 
 exports.init = function(server) {
 	
+	// set session code
 	server.passport.serializeUser(function(user, done) {
 	  done(null, user.email);
 	});
@@ -22,6 +24,7 @@ exports.init = function(server) {
 	  done({error:true,message:"not logged in"})
 	});
 	
+	// rest end point for are we logged in
 	server.app.get('/rest/isLoggedIn', function(req, res){
 		if( req.user ) {
 			res.send({
@@ -32,12 +35,47 @@ exports.init = function(server) {
 		}
 		
 		res.send({status:false});
-	});	
+	});
 	
+	// setup oauth providers
 	_setupGoogleAuth(server);
 	_setupFacebookAuth(server);
 	_setupTwitterAuth(server);
+	
+
+	// Automatically apply the `requireLogin` middleware to all
+	// routes starting with `/admin`
+	server.app.all("/", requireLogin, function(req, res, next) {
+	  next(); // if the middleware allowed us to get here,
+	          // just move on to the next route handler
+	});
 };
+
+//require login for admins
+function requireLogin(req, res, next) {
+	console.log("here");
+	console.log(req);
+	if (req.user) {
+		next(); // allow the next route to run
+	} else {
+		// require the user to log in
+		res.redirect("/login.html"); // or render a form, etc.
+	}
+}
+
+
+// access auth server and see if user has account
+function getCentralAuthUser(user, done) {
+	request({url:rootUrl+"/rest/getUser?app=ccc&username="+user.email,json:true}, function (error, response, body) {
+	  if (!error && response.statusCode == 200) {
+		  	users[user.email] = user;
+			
+			done(null, user);
+	  } else {
+		  done({error:true});
+	  }
+    });
+}
 
 function _setupTwitterAuth(server) {
 	server.passport.use(new TwitterStrategy({
@@ -54,10 +92,8 @@ function _setupTwitterAuth(server) {
 				provider   : 'Twitter'
 			};
 			
-			// TODO: load groups
-			users[user.email] = user;
+			getCentralAuthUser(user, done);
 			
-			done(null, user);
 	  }
 	));
 	
@@ -84,10 +120,7 @@ function _setupFacebookAuth(server) {
 				provider   : 'Facebook'
 			};
 			
-			// TODO: load groups
-			users[user.email] = user;
-			
-			done(null, user);
+			getCentralAuthUser(user, done);
 	  }
 	));
 	
@@ -112,10 +145,7 @@ function _setupGoogleAuth(server) {
 			provider   : 'Google'
 		};
 		
-		// TODO: load groups
-		users[user.email] = user;
-		
-		done(null, user);
+		getCentralAuthUser(user, done);
 	  }
 	));
 	

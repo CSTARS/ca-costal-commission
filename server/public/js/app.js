@@ -1,6 +1,4 @@
-var CCC = {
-	widgets : {}	
-};
+CCC.widgets = {};
 
 CCC.app = (function() {
 	
@@ -9,19 +7,12 @@ CCC.app = (function() {
 	
 	var cPage = "";
 	
-	$(document).ready(function() {
-		
+	$(window).ready(function(){
 		// mqe.js handles the hash parsing and fires this event
 		$(window).bind("page-update-event", function(e, hash){
 			_updatePage(hash[0]);
 			_updatePageContent(hash);
 		});
-		
-		CERES.mqe.init(DEFAULT_PAGE);
-		CCC.home.init();
-		CCC.search.init();
-		CCC.result.init();
-		
 	});
 	
 	function _updatePage(page) {

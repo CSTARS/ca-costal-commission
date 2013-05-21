@@ -52,8 +52,6 @@ $(document).ready(function(){
 		url     : "/rest/formData",
 		success : function(options) {
 			options.id = "#form-root";
-			//if( localStorage.form ) data.data = JSON.parse(localStorage.form);
-			//Ceres.forms.generate(data);
 			
 			onFormReady(options);
 		}
