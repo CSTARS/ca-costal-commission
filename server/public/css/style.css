@@ -129,3 +129,12 @@ ins {
 	list-style-image : none;
 	margin-bottom: 5px;
 }
+
+#anchor a:visited {
+	color: #2fa4e7;
+}
+
+#anchor .btn a:visited {
+	color: white;
+}
+

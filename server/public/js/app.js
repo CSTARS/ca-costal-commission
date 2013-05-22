@@ -30,7 +30,7 @@ CCC.app = (function() {
 	
 	function _updatePageContent(hash) {
 		if ( cPage == "all" ) {
-			CCC.all.init();
+			CCC.all.init(CCC.host);
 		} else if ( cPage == "edit" ) {
 			CCC.edit.init();
 		}

@@ -2,11 +2,11 @@ CCC.all = (function() {
 	
 	var initialized = false;
 	
-	function init() {
+	function init(host) {
 		if( initialized ) return;
 		
 		$.ajax({
-			  url: "/rest/allOrgs",
+			  url: host ? host+"/rest/allOrgs" : "/rest/allOrgs",
 			  success: function ( data ) {
 			    _createList(data);
 			  },
