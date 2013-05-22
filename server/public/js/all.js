@@ -28,7 +28,7 @@ CCC.all = (function() {
 		_addToNav(nav, firstChar);
 		
 		for( var i = 1; i < data.length; i++ ) {
-			li = $("<li><a href='/#result/"+data[i]._id+"'>"+data[i].organization+"</a></li>");
+			li = $("<li><a href='#result/"+data[i]._id+"'>"+data[i].organization+"</a></li>");
 			
 			if( _getFirstChar(data[i]) == firstChar ) {
 				list.append(li);
