@@ -3,6 +3,7 @@ CCC = {};
 CCC.jslib = [
         "jslib/bootstrap.min.js",
         "jslib/handlebars.js",
+        "jslib/jquery.dform.min.js",
         "mqe/mqe.js",
 ];
 
@@ -12,7 +13,8 @@ CCC.js = [
 	     "js/home.js",
 	     "js/all.js",
 	     "js/result.js",
-	     "js/edit.js"
+	     "js/edit.js",
+	     "js/bootstrap-dform.js"
 ];
 
 
