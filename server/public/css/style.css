@@ -112,3 +112,20 @@ ins {
 .nav-list {
 	padding : 0px;
 }
+
+
+/***
+ *  State template overrides
+ ***/
+#anchor h2 {
+	border: none !important;
+}
+
+#anchor a:link {
+	color: #2fa4e7;
+}
+
+#middle_column #anchor ul li {
+	list-style-image : none;
+	margin-bottom: 5px;
+}

@@ -27,7 +27,7 @@ CCC.home = (function(){
 			var filter = [{}];
 			filter[0][f] = data[i];
 			
-			lists[c].append("<li><a href='/#search//"+encodeURIComponent(JSON.stringify(filter))+"/0/6'>"+data[i]+"</a></li>");
+			lists[c].append("<li><a href='#search//"+encodeURIComponent(JSON.stringify(filter))+"/0/6'>"+data[i]+"</a></li>");
 			
 			j++
 			if( j == numPerList || (c >= mod && (j == numPerList-1)) ) {

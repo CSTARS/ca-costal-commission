@@ -87,5 +87,5 @@ CCC.onReady = function() {
 	CERES.mqe.init("home",CCC.host);
 	CCC.home.init();
 	CCC.search.init();
-	CCC.result.init();
+	CCC.result.init(CCC.host);
 }

@@ -43,8 +43,8 @@ CCC.result = (function() {
 	
 	var loadHandlers = [];
 	
-	function init() {
-		$('#result').load('/result.handlebars', function() {
+	function init(host) {
+		$('#result').load(host ? host+'/result.handlebars' : '/result.handlebars', function() {
 			var source = $("#result-template").html();
 			resultTemplate = Handlebars.compile(source);
 			
