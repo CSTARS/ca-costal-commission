@@ -171,6 +171,10 @@ input[type=tel], input[type=date], input[type=url] {
 	color: #2fa4e7;
 }
 
+#anchor .btn:link {
+	color: white !important;
+}
+
 #anchor .btn:visited {
 	color: white !important;
 }
