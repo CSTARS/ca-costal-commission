@@ -32,7 +32,7 @@ CCC.app = (function() {
 		if ( cPage == "all" ) {
 			CCC.all.init(CCC.host);
 		} else if ( cPage == "edit" ) {
-			CCC.edit.init();
+			CCC.edit.init(CCC.host);
 		}
 	}
 	

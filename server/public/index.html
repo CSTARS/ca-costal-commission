@@ -12,9 +12,12 @@
 	<script type="text/javascript" >
 		var CCC = {};
 	</script>
+	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript" src="jslib/bootstrap.min.js"></script>
 	<script type="text/javascript" src="jslib/handlebars.js"></script>
+	<script type="text/javascript" src="jslib/jquery.dform.min.js"></script>
+	
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript" src="mqe/mqe.js"></script>
 	<script type="text/javascript" src="js/search.js"></script>
@@ -22,6 +25,7 @@
 	<script type="text/javascript" src="js/all.js"></script>
 	<script type="text/javascript" src="js/result.js"></script>
 	<script type="text/javascript" src="js/edit.js"></script>
+	<script type="text/javascript" src="js/bootstrap-dform.js"></script>
 	
 	<script type="text/javascript">
 		$(window).ready(function(){
@@ -219,7 +223,9 @@
 	
 </div>
 
-<div id="edit" style="display:none"></div>
-
+<div id="edit" style="display:none">
+	<div id="form-root" ></div>
+	<div id="form-error-msg" style="color:red"></div>
+</div>
 </body>
 </html>

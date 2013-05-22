@@ -102,9 +102,9 @@ ins {
 	height : 30px;
 }
 
-#edit input[type="radio"], #edit input[type="checkbox"] {
+/*#edit input[type="radio"], #edit input[type="checkbox"] {
 	margin: -2px 0 0 0;
-}
+}*/
 
 /******
  * Bootstrap Mods
@@ -113,6 +113,43 @@ ins {
 	padding : 0px;
 }
 
+/***
+ * Edit form styles
+ ***/
+ 
+input[type=text], input[type=password], input[type=number], input[type=email], 
+input[type=tel], input[type=date], input[type=url] {
+	height : 40px !important;
+}
+.dform-section {
+	margin-bottom : 25px;
+}
+.dform-subform {
+	margin : 10px;
+	padding : 15px;
+	border : 1px solid #ccc;
+	background-color : #eaeaea;
+	
+	border-radius : 6px;
+	-moz-border-radius : 6px;
+	-webkit-border-radius : 6px;
+	
+	box-shadow : 0 0 3px #ccc inset;
+	-moz-box-shadow : 0 0 3px #ccc inset;
+	-webkit-box-shadow : 0 0 3px #ccc inset;
+}
+.ui-dform-form textarea {
+	height : 150px;
+	width  : 90%;
+}
+.dform-divider {
+	text-align    : center;
+	border-bottom : 1px solid #ddd; 
+	margin-bottom : 15px;
+}
+.ui-dform-label.error {
+	color: red !important;
+}
 
 /***
  *  State template overrides
@@ -134,7 +171,7 @@ ins {
 	color: #2fa4e7;
 }
 
-#anchor .btn a:visited {
-	color: white;
+#anchor .btn:visited {
+	color: white !important;
 }
 
