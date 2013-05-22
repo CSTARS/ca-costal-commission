@@ -117,8 +117,8 @@ ins {
  * Edit form styles
  ***/
  
-input[type=text], input[type=password], input[type=number], input[type=email], 
-input[type=tel], input[type=date], input[type=url] {
+#anchor input[type=text], #anchor input[type=password], #anchor input[type=number], 
+#anchor input[type=email], #anchor input[type=tel], #anchor input[type=date], #anchor input[type=url] {
 	height : 40px !important;
 }
 .dform-section {
