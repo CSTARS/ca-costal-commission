@@ -24,7 +24,7 @@ CCC.css = [
 
 CCC.jquery = "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js";
 CCC.html = "html/main.html";
-CCC.host = "http://testnode.com:3000";
+CCC.host = "http://node-ccc.ceres.ca.gov";
 CCC.root = "#anchor";
 
 window.onload = function() {
