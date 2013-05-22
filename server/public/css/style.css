@@ -119,7 +119,7 @@ ins {
  
 #anchor input[type=text], #anchor input[type=password], #anchor input[type=number], 
 #anchor input[type=email], #anchor input[type=tel], #anchor input[type=date], #anchor input[type=url] {
-	height : 40px !important;
+	height : 25px !important;
 }
 .dform-section {
 	margin-bottom : 25px;
