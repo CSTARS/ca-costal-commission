@@ -62,7 +62,12 @@ exports.auth = {
 exports.server = {
 	// local config
 	host : "localhost",
-	port : 3000,
+	
+	// port outside world goes to.  most likely 80
+	remoteport : 80,
+	
+	// local port on machine
+	localport : 3000,
 	
 	// remote hosts that are allowed to access this sites mqe
 	allowedDomains : ["testnode.com","localhost"],
