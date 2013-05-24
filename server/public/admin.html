@@ -30,7 +30,13 @@
 		});
 		
 		function _onHashChange() {
-			var hash = window.location.hash.replace("#",'');
+			var hash = window.location.hash;
+			if( hash == null ) hash = "";
+			
+			hash = hash.replace("#",'');
+			
+			// clean facebook hash
+			hash = hash.replace.replace('_=_',"");
 			
 			if( hash == null || hash == "") {
 				CCC.admin.showHome();
