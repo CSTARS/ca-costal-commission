@@ -191,7 +191,7 @@ CCC.search = (function() {
 		$(".static-filters").on('click', function(e) {
 			var filter = e.target.id.replace(/static-filter-/, '');
 			var query = CERES.mqe.getCurrentQuery();
-			query.cPage = 0;
+			query.page = 0;
 			if( this.checked ) {
 				query.filters.push(staticFilters[filter].filter);
 			} else {
@@ -235,12 +235,15 @@ CCC.search = (function() {
 		}
 		
 		var panel = $("#search-paging-btns");
+		var panelBottom = $("#search-paging-btns-bottom");
 		panel.html("");
+		panelBottom.html("");
 		
 		// add back button
 		if( cPage != 0 ) {
 			tmpQuery.page = cPage-1;
 			panel.append($("<li><a href='"+CERES.mqe.queryToUrlString(tmpQuery)+"'>&#171;</a></li>"));
+			panelBottom.append($("<li><a href='"+CERES.mqe.queryToUrlString(tmpQuery)+"'>&#171;</a></li>"));
 		}
 		
 		for( var i = startBtn; i < endBtn; i++ ) {
@@ -249,14 +252,18 @@ CCC.search = (function() {
 			var btn = $("<li><a href='"+CERES.mqe.queryToUrlString(tmpQuery)+"'>"+label+"</a></li>");
 			if( cPage == i ) btn.addClass('active');
 			panel.append(btn);
+			
+			btn = $("<li><a href='"+CERES.mqe.queryToUrlString(tmpQuery)+"'>"+label+"</a></li>");
+			if( cPage == i ) btn.addClass('active');
+			panelBottom.append(btn);
 		}
 		
 		// add next button
 		if(  cPage != numPages-1 && numPages != 0 ) {
 			tmpQuery.page = cPage+1;
 			panel.append($("<li><a href='"+CERES.mqe.queryToUrlString(tmpQuery)+"'>&#187;</a></li>"));
+			panelBottom.append($("<li><a href='"+CERES.mqe.queryToUrlString(tmpQuery)+"'>&#187;</a></li>"));
 		}
-		
 	}
 	
 	function _updateResultsTitle(results) {

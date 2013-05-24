@@ -18,7 +18,7 @@ CCC.app = (function() {
 	function _updatePage(page) {
 		if( page == cPage ) return;
 		
-		$('body').scrollTop(0);
+		$('html, body').scrollTop(0);
 		
 		if( validPages.indexOf(page) == -1 ) page = DEFAULT_PAGE;
 		
