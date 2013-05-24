@@ -49,6 +49,7 @@ CCC.search = (function() {
 			_updateFilters(results); // this should always be before adding active filters
 			_updateActiveFilters(results);
 			_updatePaging(results);
+			$('html, body').scrollTop(0);
 		});
 		
 		// set search handlers
