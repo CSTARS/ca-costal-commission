@@ -57,6 +57,11 @@ CCC.admin = (function(){
 				});
 			}
 		});
+		
+		$("#logout").on('click', function(){
+			$.removeCookie('connect.sid');
+			window.location = "/login.html";
+		});
 	}
 	
 	function showHome() {

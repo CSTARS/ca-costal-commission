@@ -55,6 +55,9 @@ exports.auth = {
 		// these pages will require login and admin role
 		adminPages        : ["admin.html"],
 		
+		// page to redirect to after login
+		loginRedirectPage : "admin.html";
+		
 		// do accounts require approval?
 		requireApproval   : false
 }
