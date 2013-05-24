@@ -47,7 +47,7 @@ CCC.all = (function() {
 		
 		nav.find("a").on('click', function(){
 			var title = $("#all-title-"+this.id.replace(/all-nav-/,''));
-			  $('body').animate({scrollTop : title.offset().top},'slow');
+			  $('html, body').animate({scrollTop : title.offset().top},'slow');
 		});
 	}
 	

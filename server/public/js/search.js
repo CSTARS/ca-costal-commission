@@ -191,7 +191,7 @@ CCC.search = (function() {
 		$(".static-filters").on('click', function(e) {
 			var filter = e.target.id.replace(/static-filter-/, '');
 			var query = CERES.mqe.getCurrentQuery();
-			
+			query.cPage = 0;
 			if( this.checked ) {
 				query.filters.push(staticFilters[filter].filter);
 			} else {
