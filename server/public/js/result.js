@@ -1,5 +1,6 @@
 Handlebars.registerHelper('result-list', function(items, options) {
   var out = "<div>";
+  items.sort();
   for(var i=0, l=items.length; i<l; i++) {
     out = out + items[i];
     if( i < items.length - 1 ) out += ", ";
