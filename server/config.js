@@ -56,7 +56,7 @@ exports.auth = {
 		adminPages        : ["admin.html"],
 		
 		// page to redirect to after login
-		loginRedirectPage : "admin.html";
+		loginRedirectPage : "admin.html",
 		
 		// do accounts require approval?
 		requireApproval   : false

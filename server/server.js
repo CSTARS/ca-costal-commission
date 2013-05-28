@@ -6,7 +6,7 @@
  * 
  */
 var config = require(process.argv[2]);
-
+var nodeExcel = require('excel-export');
 var ObjectId = require('mongodb').ObjectID;
 
 // include auth model
@@ -15,6 +15,19 @@ if( config.auth ) {
 	auth = require(config.auth.script);
 }
  
+var exportHeaders = [
+	{caption:'Organization', type:'string'},
+	{caption:'Contact Name', type:'string'},
+	{caption:'Contact Email', type:'string'},
+	{caption:'Contact Phone', type:'string'},
+	{caption:'Contact Fax', type:'string'},
+	{caption:'Street Address', type:'string'},
+	{caption:'Street Address 2', type:'string'},
+	{caption:'City', type:'string'},
+	{caption:'State', type:'string'},
+	{caption:'Zip', type:'string'},
+	{caption:'County', type:'string'}
+];
 
 // express app
 exports.bootstrap = function(server) {
@@ -162,9 +175,89 @@ exports.bootstrap = function(server) {
 		});
 	});
 	
+	server.app.get('/rest/export', function(req, res){
+		
+		collection.find({},{}).sort({organization:1}).toArray(function(err, items) {
+			if( err ) return res.send({error:true,message:err});
+			
+			var rows = [];
+			var row, it;
+			for( var i = 0; i < items.length; i++ ) {
+				it = items[i];
+				if( it.organization == null ) continue;
+				
+				row = [];
+				row.push(cleanXml(it.organization));
+				if( it.contactInfo && it.contactInfo.length > 0 ) {
+					row.push(it.contactInfo[0].name ? cleanXml(it.contactInfo[0].name) : "");
+					row.push(it.contactInfo[0].email ? cleanXml(it.contactInfo[0].email) : "");
+					row.push(it.contactInfo[0].phone ? cleanXml(it.contactInfo[0].phone) : "");
+					row.push(it.contactInfo[0].fax ? cleanXml(it.contactInfo[0].fax) : "");
+					row.push(it.contactInfo[0].addressStreet ? cleanXml(it.contactInfo[0].addressStreet) : "");
+					row.push(it.contactInfo[0].addressStreet2 ? cleanXml(it.contactInfo[0].addressStreet2) : "");
+					row.push(it.contactInfo[0].addressCity ? cleanXml(it.contactInfo[0].addressCity) : "");
+					row.push(it.contactInfo[0].addressState ? cleanXml(it.contactInfo[0].addressState) : "CA");
+					row.push(it.contactInfo[0].addressZip ? cleanXml(it.contactInfo[0].addressZip) : "CA");
+					row.push(it.contactInfo[0].county ? cleanXml(it.contactInfo[0].county) : "");
+				} else {
+					row.push("");
+					row.push("");
+					row.push("");
+					row.push("");
+					row.push("");
+					row.push("");
+					row.push("");
+					row.push("");
+					row.push("");
+					row.push("");
+				}
+				
+				rows.push(row);
+			}
+			
+			console.log(rows);
+			
+			var conf = {
+				cols : exportHeaders,
+				rows : rows
+			};
+			
+			var result = nodeExcel.execute(conf);
+		    res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+		    res.setHeader("Content-Disposition", "attachment; filename=" + "Creeks_to_Coast_Export.xlsx");
+		    res.end(result, 'binary');
+			
+		});
+	});
+	
+	server.app.get('/rest/test', function(req, res){
+	      var conf = {};
+	      conf.cols = [
+	        {caption:'string', type:'string'},
+	        {caption:'date', type:'date'},
+	        {caption:'bool', type:'bool'},
+	        {caption:'number', type:'number'}                
+	      ];
+	      conf.rows = [
+	        ['pi', (new Date(2013, 4, 1)).getJulian(), true, 3.14],
+	        ["e", (new Date(2012, 4, 1)).getJulian(), false, 2.7182]
+	      ];
+	      var result = nodeExcel.execute(conf);
+	      res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+	      res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
+	      res.end(result, 'binary');
+	});
+	
 	server.app.use("/", server.express.static(__dirname+"/public"));
 	
 	// set the auth endpoints
 	if( config.auth ) auth.init(server.app, server.passport, config);
 	
 };
+
+function cleanXml(txt) {
+	return txt.replace(/&/g, '&amp;')
+    		  .replace(/</g, '&lt;')
+    		  .replace(/>/g, '&gt;')
+    		  .replace(/"/g, '&quot;');
+}
