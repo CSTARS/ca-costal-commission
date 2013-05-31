@@ -59,7 +59,7 @@ CCC.all = (function() {
 		var header = $("<div class='page-header'></div>");
 		var title = $("<h5 id='all-title-"+firstChar+"'>"+firstChar+"</h5>");
 		var top = $("<a class='pull-right' style='color:#157ab5;cursor:pointer'><i class='icon-arrow-up'></i> top</a>").on('click', function(){
-			$('body').animate({scrollTop : 0},'slow');
+			$('html, body').animate({scrollTop : 0},'slow');
 		});
 		
 		panel.append(header.append(title.prepend(top)));

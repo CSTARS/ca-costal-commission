@@ -55,7 +55,11 @@ CCC.onJqueryLoad = function() {
 	}
 	
 	// inject root
-	$(CCC.root).load(CCC.host+"/"+CCC.html);
+	//$(CCC.root).load(CCC.host+"/"+CCC.html); // IE doesn't seem to like this
+	// try this..
+	$.get(CCC.host+"/"+CCC.html + "?" + new Date().getTime(), function(data) {
+		$(CCC.root).html(data);
+	});
 	
 	// add script tags
 	var loadCount = 0;
