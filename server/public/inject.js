@@ -66,11 +66,10 @@ window.onload = function() {
 		    	CCC.onJqueryLoad();
 		    }
 		};
-		head.appendChild(jquery);
 	} else {
 		jquery.onload = CCC.onJqueryLoad;
 	}
-	
+	head.appendChild(jquery);
 }
 
 CCC.onJqueryLoad = function() {
