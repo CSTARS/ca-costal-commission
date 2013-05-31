@@ -74,7 +74,7 @@ window.onload = function() {
 
 CCC.onJqueryLoad = function() {
 	// IE cross-site for jquery
-	/ add ajax transport method for cross domain requests when using IE9
+	// add ajax transport method for cross domain requests when using IE9
 	if('XDomainRequest' in window && window.XDomainRequest !== null) {
 	   $.ajaxTransport("+*", function( options, originalOptions, jqXHR ) {
 	        var xdr;
