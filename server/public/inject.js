@@ -45,9 +45,11 @@ window.onload = function() {
 	
 	// jquery.onload = CCC.onJqueryLoad;
 	// Attach handlers for all browsers
+	var done = false;
 	jquery.onreadystatechange = function() {
 	    if ( !done && (!this.readyState ||
 	            this.readyState === "loaded" || this.readyState === "complete") ) {
+	    	done = true;
 	    	CCC.onJqueryLoad();
 	    }
 	};
