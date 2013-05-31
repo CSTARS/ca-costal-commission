@@ -93,7 +93,9 @@ CCC.onJqueryLoad = function() {
 	                    } else {
 	                    	try {
 	                    		this.reponseText = eval('('+this.responseText+')');
-	                    	} catch (e) {}
+	                    	} catch (e) {
+	                    		CCC.error = e;
+	                    	}
 	                    	
 	                        completeCallback(200, "success", [this.responseText]);
 	                    }
