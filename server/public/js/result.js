@@ -45,9 +45,8 @@ CCC.result = (function() {
 	var loadHandlers = [];
 	
 	function init(host) {
-		$('#result').load(host ? host+'/result.handlebars' : '/result.handlebars', function() {
-			var source = $("#result-template").html();
-			resultTemplate = Handlebars.compile(source);
+		$.getScript(host ? host+'/result.handlebars.js' : '/result.handlebars.js', function(){
+			resultTemplate = Handlebars.compile(CCC.resultHandlebar);
 			
 			loaded = true;
 			
@@ -57,6 +56,10 @@ CCC.result = (function() {
 				var f = loadHandlers[i];
 				f();
 			}
+		});
+		
+		$('#result').load(, function() {
+			
 		});
 		
 		$(window).bind('result-update-event', function(e, result){
