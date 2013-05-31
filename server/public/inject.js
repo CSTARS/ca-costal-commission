@@ -42,7 +42,15 @@ window.onload = function() {
 	// add jquery
 	var jquery = document.createElement("script");
 	jquery.src = CCC.jquery;
-	jquery.onload = CCC.onJqueryLoad;
+	
+	// jquery.onload = CCC.onJqueryLoad;
+	// Attach handlers for all browsers
+	jquery.onreadystatechange = function() {
+	    if ( !done && (!this.readyState ||
+	            this.readyState === "loaded" || this.readyState === "complete") ) {
+	    	CCC.onJqueryLoad();
+	    }
+	};
 	head.appendChild(jquery);
 }
 
