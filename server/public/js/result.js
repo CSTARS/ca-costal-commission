@@ -58,10 +58,6 @@ CCC.result = (function() {
 			}
 		});
 		
-		$('#result').load(, function() {
-			
-		});
-		
 		$(window).bind('result-update-event', function(e, result){
 			updateResult(result);
 		});

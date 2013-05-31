@@ -1,4 +1,5 @@
-var CCC.resultHandlebar = ['  <div>',
+CCC.resultHandlebar = [
+'  <div>',
 '	<div class="page-header">',
 '		<div class="row-fluid">',
 '			<div class="span9">',
