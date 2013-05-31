@@ -91,13 +91,14 @@ CCC.onJqueryLoad = function() {
 	                        dom.loadXML(this.responseText);
 	                        completeCallback(200, "success", [dom]);
 	                    } else {
+	                    	var resp = this.responseText;
 	                    	try {
-	                    		this.responseText = eval('('+this.responseText+')');
+	                    		resp = eval('('+resp+')');
 	                    	} catch (e) {
 	                    		CCC.error = e;
 	                    	}
 	                    	
-	                        completeCallback(200, "success", [this.responseText]);
+	                        completeCallback(200, "success", [resp]);
 	                    }
 	                };
 
