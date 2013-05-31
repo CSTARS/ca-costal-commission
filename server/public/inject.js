@@ -25,7 +25,7 @@ CCC.css = [
 ];
 
 CCC.jquery = "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js";
-CCC.html = "html/main.html";
+CCC.html = "html/main.js";
 CCC.host = "http://node-ccc.ceres.ca.gov";
 CCC.root = "#anchor";
 
@@ -57,8 +57,16 @@ CCC.onJqueryLoad = function() {
 	// inject root
 	//$(CCC.root).load(CCC.host+"/"+CCC.html); // IE doesn't seem to like this
 	// try this..
-	$.get(CCC.host+"/"+CCC.html + "?" + new Date().getTime(), function(data) {
-		$(CCC.root).html(data);
+	$.ajax({
+		url : CCC.host+"/"+CCC.html + "?_=" + new Date().getTime(),
+		success : function(data) {
+			$(CCC.root).html(data);
+		},
+		error : function(e, e1, e2) {
+			CCC.e = e;
+			CCC.e1 = e1;
+			CCC.e2 = e2;
+		}
 	});
 	
 	// add script tags
