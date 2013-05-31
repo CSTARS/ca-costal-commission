@@ -1,3 +1,15 @@
+var ie = (function(){
+    var undef,
+        v = 3,
+        div = document.createElement('div'),
+        all = div.getElementsByTagName('i');
+    while (
+        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+        all[0]
+    );
+    return v > 4 ? v : undef;
+}());
+
 CCC = {};
 
 CCC.jslib = [
@@ -45,15 +57,20 @@ window.onload = function() {
 	
 	// jquery.onload = CCC.onJqueryLoad;
 	// Attach handlers for all browsers
-	var done = false;
-	jquery.onreadystatechange = function() {
-	    if ( !done && (!this.readyState ||
-	            this.readyState === "loaded" || this.readyState === "complete") ) {
-	    	done = true;
-	    	CCC.onJqueryLoad();
-	    }
-	};
-	head.appendChild(jquery);
+	if( ie ) {
+		var done = false;
+		jquery.onreadystatechange = function() {
+		    if ( !done && (!this.readyState ||
+		            this.readyState === "loaded" || this.readyState === "complete") ) {
+		    	done = true;
+		    	CCC.onJqueryLoad();
+		    }
+		};
+		head.appendChild(jquery);
+	} else {
+		jquery.onload = CCC.onJqueryLoad;
+	}
+	
 }
 
 CCC.onJqueryLoad = function() {
