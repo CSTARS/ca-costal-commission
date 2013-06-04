@@ -17,7 +17,7 @@ CCC.app = (function() {
 	
 	function _updatePage(page) {
 		// track all hash updates
-		ga('send', 'pageview');
+		ga('send', 'pageview', window.location.pathname+window.location.hash);
 		
 		if( page == cPage ) return;
 		
