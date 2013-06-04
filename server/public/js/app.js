@@ -8,6 +8,11 @@ CCC.app = (function() {
 	var cPage = "";
 	
 	$(window).ready(function(){
+		// google analytics, track hash tag changes
+		var pageTracker = _gat._getTracker("UA-41472237-1");
+		if( pageTracker ) pageTracker._setAllowAnchor(true);
+		
+		
 		// mqe.js handles the hash parsing and fires this event
 		$(window).bind("page-update-event", function(e, hash){
 			_updatePage(hash[0]);
