@@ -77,7 +77,11 @@ exports.bootstrap = function(server) {
 	server.app.post('/rest/editData', function(req, res) {
 		
 		var data = req.body;
+		
 		if( !data ) return res.send({error:true,message:"no data"});
+		
+		// simple sanity check
+		if( !data.submitterEmail ) return res.send({error:true,message:"invalid number of arguments"});
 		
 		var d = new Date();
 		if( data._id ) {
@@ -228,24 +232,6 @@ exports.bootstrap = function(server) {
 		    res.end(result, 'binary');
 			
 		});
-	});
-	
-	server.app.get('/rest/test', function(req, res){
-	      var conf = {};
-	      conf.cols = [
-	        {caption:'string', type:'string'},
-	        {caption:'date', type:'date'},
-	        {caption:'bool', type:'bool'},
-	        {caption:'number', type:'number'}                
-	      ];
-	      conf.rows = [
-	        ['pi', (new Date(2013, 4, 1)).getJulian(), true, 3.14],
-	        ["e", (new Date(2012, 4, 1)).getJulian(), false, 2.7182]
-	      ];
-	      var result = nodeExcel.execute(conf);
-	      res.setHeader('Content-Type', 'application/vnd.openxmlformats');
-	      res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
-	      res.end(result, 'binary');
 	});
 	
 	server.app.use("/", server.express.static(__dirname+"/public"));

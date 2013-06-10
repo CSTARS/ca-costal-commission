@@ -369,8 +369,6 @@ Ceres.forms = (function(){
 	function _checkRequired(data, fid, eles) {
 		var errors = [];
 		
-		
-		
 		for( var i = 0; i < eles.length; i++ ) {
 			if( eles[i].required ) {
 				var ele = eles[i];
@@ -419,8 +417,15 @@ Ceres.forms = (function(){
 		    // radiobuttons
 			} else if ( ele.type == "radiobuttons" && data[ele.id] != null ) {
 				
+				// little sanity checking
+				var d = data[ele.id];
+				if( d instanceof Array && d.length > 0 ) d = d[0];
+				if( typeof d != "string" ) d = "";
+				d = d.toLowerCase();
+				
+				
 				$(id+"-"+ele.id).find("input[type=radio]").prop('checked',false);
-				$(id+"-"+ele.id).find("input[value=\""+data[ele.id]+"\"]").prop('checked', true);
+				$(id+"-"+ele.id).find("input[value=\""+d+"\"]").prop('checked', true);
 				
 			// checkboxes
 			} else if ( ele.type == "checkboxes" && data[ele.id] != null ) {

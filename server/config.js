@@ -73,7 +73,7 @@ exports.server = {
 	localport : 3000,
 	
 	// remote hosts that are allowed to access this sites mqe
-	allowedDomains : ["testnode.com","localhost"],
+	allowedDomains : ["testnode.com","localhost","192.168.1.113"],
 	
 	// server script
 	script : "/Users/jrmerz/dev/ceres/ca-costal-commission/server/server.js"
@@ -423,8 +423,8 @@ exports.editForm = {
                 	caption  : "Community service documentation provided:",
                     type     : "radiobuttons",
                     options  : {
-                    	yes : "yes",
-                    	no  : "no"
+                    	yes : "Yes",
+                    	no  : "No"
                     },
                 	name     : "documentation",
                 	id       : "documentation"
@@ -483,9 +483,9 @@ exports.editForm = {
                 	caption  : "Is housing provided?",
                     type     : "radiobuttons",
                     options  : {
-                    	Yes : "Yes",
-                    	No  : "No",
-                    	TBD : "To be determined"
+                    	yes : "Yes",
+                    	no  : "No",
+                    	tbd : "To be determined"
                     },
                 	name     : "housingProvided",
                 	id       : "housingProvided"
@@ -494,9 +494,9 @@ exports.editForm = {
                 	caption  : "Is this a paid internship?",
                     type     : "radiobuttons",
                     options  : {
-                    	Yes : "Yes",
-                    	No  : "No",
-                    	TBD : "To be determined"
+                    	yes : "Yes",
+                    	no  : "No",
+                    	tbd : "To be determined"
                     },
                 	name     : "paid",
                 	id       : "paid"
@@ -505,9 +505,9 @@ exports.editForm = {
                 	caption  : "Is a stipend available?",
                     type     : "radiobuttons",
                     options  : {
-                    	Yes : "Yes",
-                    	No  : "No",
-                    	TBD : "To be determined"
+                    	yes : "Yes",
+                    	no  : "No",
+                    	tbd : "To be determined"
                     },
                 	name     : "stipend",
                 	id       : "stipend"
@@ -516,9 +516,9 @@ exports.editForm = {
                 	caption  : "Is academic credit available?",
                     type     : "radiobuttons",
                     options  : {
-                    	Yes : "Yes",
-                    	No  : "No",
-                    	TBD: "To be determined"
+                    	yes : "Yes",
+                    	no  : "No",
+                    	tbd: "To be determined"
                     },
                 	name     : "academicCredit",
                 	id       : "academicCredit"
