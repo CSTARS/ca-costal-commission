@@ -77,13 +77,14 @@ CCC.onJqueryLoad = function() {
 	// add ajax transport method for cross domain requests when using IE9
 	if('XDomainRequest' in window && window.XDomainRequest !== null) {
 	   $.ajaxTransport("+*", function( options, originalOptions, jqXHR ) {
+
 	        var xdr;
 
 	        return {
 	            send: function( headers, completeCallback ) {
 	                // Use Microsoft XDR
 	                xdr = new XDomainRequest();
-	                xdr.open("get", options.url); // NOTE: make sure protocols are the same otherwise this will fail silently
+	                xdr.open(options.type, options.url); // NOTE: make sure protocols are the same otherwise this will fail silently
 	                xdr.onload = function() {
 	                    if(this.contentType.match(/\/xml/)){
 	                        var dom = new ActiveXObject("Microsoft.XMLDOM");
