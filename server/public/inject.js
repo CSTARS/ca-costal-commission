@@ -113,7 +113,8 @@ CCC.onJqueryLoad = function() {
 	                    completeCallback(404, "error", ["The requested resource could not be found."]);
 	                };
 
-	                xdr.send();
+	                if( options.data != null ) xdr.send(options.data);
+	                else xdr.send();
 	            },
 	            abort: function() {
 	                if(xdr) xdr.abort();
