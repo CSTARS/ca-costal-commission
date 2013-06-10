@@ -239,7 +239,7 @@ exports.editForm = {
         {
         	caption  : "Geographical focus of organization:",
         	required : true,
-            type     : "radiobuttons",
+            type     : "checkboxes",
             options  : "schema",
             id       : "geoFocus",
             name     : "geoFocus"

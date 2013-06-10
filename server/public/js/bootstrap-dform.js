@@ -421,8 +421,9 @@ Ceres.forms = (function(){
 				var d = data[ele.id];
 				if( d instanceof Array && d.length > 0 ) d = d[0];
 				if( typeof d != "string" ) d = "";
-				d = d.toLowerCase();
 				
+				// hack for yes / no case
+				if( d.toLowerCase() == "yes" || d.toLowerCase() == "yes" ) d = d.toLowerCase();
 				
 				$(id+"-"+ele.id).find("input[type=radio]").prop('checked',false);
 				$(id+"-"+ele.id).find("input[value=\""+d+"\"]").prop('checked', true);
@@ -430,23 +431,29 @@ Ceres.forms = (function(){
 			// checkboxes
 			} else if ( ele.type == "checkboxes" && data[ele.id] != null ) {
 				
+				// need a list of found data elements
+				// if data element not found, you assume it's the 'other' value
+				var insertList = [];
+				
 				var btns = $(id+"-"+ele.id).find("input[type=checkbox]");
 				for( var j = 0; j < btns.length; j++ ) {
 					var btn = $(btns[j]);
 					if( data[ele.id].indexOf(btn.val()) > -1 ) {
 						btn.prop('checked',true);
+						insertList.push(btn.val());
 					} else {
 						btn.prop('checked',false);
 					}
 				}
 				
-				// see if there is a manual input
+				// see if we can find an element not inserted
 				for( var j = 0; j < data[ele.id].length; j++ ) {
-					if( schema[ele.id].indexOf(data[ele.id][j]) == -1 ) {
+					if( insertList.indexOf(data[ele.id][j]) == -1 ) {
 						$(id+"-"+ele.id).find("input[type=text]").val(data[ele.id][j]);
 						break;
 					}
 				}
+
 				
 			} else if ( ele.type == "address" ) {
 				
