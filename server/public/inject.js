@@ -167,10 +167,11 @@ CCC.onReady = function() {
 	$("#accordion2").collapse();
 	$("#accordion2").height("auto");
 	
-	CERES.mqe.init("home",CCC.host);
+	
 	CCC.home.init();
 	CCC.search.init();
 	CCC.result.init(CCC.host);
+	CERES.mqe.init("home",CCC.host);
 }
 
 // if IE prototype out indexOf
