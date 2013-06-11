@@ -270,7 +270,7 @@ function notifyUpdate(item) {
 	    to: to, // list of receivers
 	    subject: "Creeks to Coast Directory Update",
 	    html: item.organization+" has submitted an update to directory.  Click "+
-	    	"<a href='http://"+config.server.host+"/admin.html#"+item._id+"'>here</a> to approve or deny to submission.";
+	    	"<a href='http://"+config.server.host+"/admin.html#"+item._id+"'>here</a> to approve or deny to submission."
 	}
 
 	// send mail with defined transport object
