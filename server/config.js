@@ -78,6 +78,12 @@ exports.server = {
 	// server script
 	script : "/Users/jrmerz/dev/ceres/ca-costal-commission/server/server.js"
 }
+exports.email = {
+	host      : "mx4.ceres.ca.gov",
+	port      : 25,
+	from      : "do-not-reply@ceres.ca.gov",
+	to        : ["jrmerz@gmail.com"]
+}
 
 exports.schema = {
  	   orgType  : ["Government", "Non-profit", "School/University", "Citizen Group", "__Other__" ],

@@ -8,6 +8,17 @@
 var config = require(process.argv[2]);
 var nodeExcel = require('excel-export');
 var ObjectId = require('mongodb').ObjectID;
+var nodemailer;
+
+if( config.email ) {
+	nodemailer = require("nodemailer");
+	// create reusable transport method (opens pool of SMTP connections)
+	var smtpTransport = nodemailer.createTransport("SMTP",{
+	        host : config.email.host,
+	        port : config.email.port
+	});
+}
+
 
 // include auth model
 var auth;
@@ -95,6 +106,10 @@ exports.bootstrap = function(server) {
 		
 		editCollection.insert(data, {w :1}, function(err, result) {
 			if( err ) return res.send({error:true,message:"failed to insert"});
+			
+			// notify admins
+			notifyUpdate(data);
+			
 			res.send({success:true});
 		});
 	});
@@ -240,6 +255,34 @@ exports.bootstrap = function(server) {
 	if( config.auth ) auth.init(server.app, server.passport, config);
 	
 };
+
+function notifyUpdate(item) {
+	if( !config.email.to || !config.email.from ) return;
+	var to = "";
+	for( var i = 0; i < config.email.to.length; i++ ) {
+		to += config.email.to[i]+",";
+	}
+	to = to.replace(/,$/,'');
+	
+	// setup e-mail data with unicode symbols
+	var mailOptions = {
+	    from: config.email.from,
+	    to: to, // list of receivers
+	    subject: "Creeks to Coast Directory Update",
+	    html: item.organization+" has submitted an update to directory.  Click "+
+	    	"<a href='http://"+config.server.host+"/admin.html#"+item._id+"'>here</a> to approve or deny to submission.";
+	}
+
+	// send mail with defined transport object
+	smtpTransport.sendMail(mailOptions, function(error, response){
+	    if(error){
+	        console.log(error);
+	    }else{
+	        console.log("Message sent: " + response.message);
+	    }
+	});
+}
+
 
 function cleanXml(txt) {
 	return txt.replace(/&/g, '&amp;')
