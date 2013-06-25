@@ -78,6 +78,7 @@ exports.server = {
 	// server script
 	script : "/Users/jrmerz/dev/ceres/ca-costal-commission/server/server.js"
 }
+
 exports.email = {
 	host      : "mx4.ceres.ca.gov",
 	port      : 25,
