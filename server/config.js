@@ -40,6 +40,9 @@ exports.db = {
 	
 	// local script to be fired when update is called via admin api call
 	importScript    : "/Users/jrmerz/dev/ceres/ca-costal-commission/server/import.js",
+	
+	// should updates be allowed to fire
+	allowUpdates    : false
 		
 }
 
