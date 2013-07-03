@@ -104,7 +104,7 @@ CCC.mainhtml = ['<div id="home" style="display:none">',
 '		<span style="font-size:11px;font-style:italic">Organizations are listed for information purposes only and their listing does not indicate ',
 '			Coastal Commission support of the policies or programs of the organizations.</span>',
 '  	</div>',
-'   <div style="color:#888;font-style:italic;font-size:11px;text-align:center;padding:20px">This site is best viewed in the lastest versions of Chrome, Firefox, Safari or Internet Explorer (IE).  IE 9 and IE 8 are supported as well.</div>'
+'   <div style="color:#888;font-style:italic;font-size:11px;text-align:center;padding:20px">This site is best viewed in the lastest versions of Chrome, Firefox, Safari or Internet Explorer (IE).  IE 9 and IE 8 are supported as well.</div>',
 '</div>',
 '',
 '<div id="search" style="display:none">',
