@@ -130,7 +130,8 @@ exports.bootstrap = function(server) {
 		
 		editCollection.find({_id: ObjectId(id)}).toArray(function(err, result){
 			if( err ) res.send({error:true,message:err});
-			res.send(result[0]);
+			else if( result.length > 0 ) res.send(result[0]);
+			else res.send({});
 		});
 	});
 	
@@ -288,5 +289,6 @@ function cleanXml(txt) {
 	return txt.replace(/&/g, '&amp;')
     		  .replace(/</g, '&lt;')
     		  .replace(/>/g, '&gt;')
-    		  .replace(/"/g, '&quot;');
+    		  .replace(/"/g, '&quot;')
+    		  .replace(/'/g, '&apos;');
 }

@@ -150,9 +150,7 @@ CCC.admin = (function(){
 					});
 					
 				} else {
-					
-					$("#resultOld").html("This is a new submission");
-					
+					$("#resultOld").html("This submission has already been handled (approved or rejected)");
 				}
 				callback(null, resp);
 			},
