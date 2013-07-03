@@ -148,9 +148,10 @@ CCC.admin = (function(){
 						$("#resultOld").find(".btn").hide();
 						_compare();
 					});
-					
+				} else if ( resp.__removed ) {
+					$("#resultOld").html("<b>This submission has already been handled (approved or rejected).</b>");
 				} else {
-					$("#resultOld").html("<b>This submission has already been handled (approved or rejected)</b>");
+					$("#resultOld").html("This is a new submission.");
 				}
 				callback(null, resp);
 			},

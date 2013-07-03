@@ -131,7 +131,7 @@ exports.bootstrap = function(server) {
 		editCollection.find({_id: ObjectId(id)}).toArray(function(err, result){
 			if( err ) res.send({error:true,message:err});
 			else if( result.length > 0 ) res.send(result[0]);
-			else res.send({});
+			else res.send({__removed:true});
 		});
 	});
 	
