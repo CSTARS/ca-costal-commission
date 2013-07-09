@@ -15,7 +15,7 @@ exports.db = {
 	// collection that is used to store edits to a record.
 	editCollection : 'org_edits',
 	
-	// Filters yours site uses, these will be returned in the results
+	// Filters your site uses, these will be returned in the results
 	// MQE will also use this list to make sure indexes are built on these items
 	indexedFilters  : ["contactInfo.county", "counties","topics","eduResources", "audiences"],
 	
