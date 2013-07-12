@@ -106,7 +106,7 @@ exports.bootstrap = function(server) {
 		
 		// merge all contactinfo.county 's into the org.counties field
 		if( !data.counties ) data.counties = [];
-		else if ( typeof data.counties == 'string' ) data.counties = [data.counties];
+		else if ( typeof data.counties == 'string' ) data.counties = data.counties.split(",");
 		if( data.contactInfo ) {
 			for( var i = 0; i < data.contactInfo.length; i++ ) {
 				if( data.contactInfo[i].county &&
