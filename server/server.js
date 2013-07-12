@@ -104,6 +104,20 @@ exports.bootstrap = function(server) {
 		
 		data.lastModified = (d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
 		
+		// merge all contactinfo.county 's into the org.counties field
+		if( !data.counties ) data.counties = [];
+		else if ( typeof data.counties == 'string' ) data.counties = [data.counties];
+		if( data.contactInfo ) {
+			for( var i = 0; i < data.contactInfo.length; i++ ) {
+				if( data.contactInfo[i].county &&
+					data.counties.indexOf( data.contactInfo[i].county ) == -1 ) {
+					data.counties.push( data.contactInfo[i].county );
+				}
+			}
+		}
+		
+		
+		
 		editCollection.insert(data, {w :1}, function(err, result) {
 			if( err ) return res.send({error:true,message:"failed to insert"});
 			
