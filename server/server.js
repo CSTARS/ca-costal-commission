@@ -40,6 +40,15 @@ var exportHeaders = [
 	{caption:'County', type:'string'}
 ];
 
+var countiesList = ["Alameda", "Alpine", "Amador", "Butte", "Calaveras", "Colusa", "Contra Costa", "Del Norte", 
+                    "El Dorado", "Fresno", "Glenn", "Humboldt", "Imperial", "Inyo", "Kern", "Kings", "Lake", 
+                    "Lassen", "Los Angeles", "Madera", "Marin", "Mariposa", "Mendocino", "Merced", "Modoc", 
+                    "Mono", "Monterey", "Napa", "Nevada", "Orange", "Placer", "Plumas", "Riverside", "Sacramento", 
+                    "San Benito", "San Bernardino", "San Diego", "San Francisco", "San Joaquin", "San Luis Obispo", 
+                    "San Mateo", "Santa Barbara", "Santa Clara", "Santa Cruz", "Shasta", "Sierra", "Siskiyou", 
+                    "Solano", "Sonoma", "Stanislaus", "Statewide", "Sutter", "Tehama", "Trinity", "Tulare", 
+                    "Tuolumne", "Ventura", "Yolo", "Yuba"];
+
 // express app
 exports.bootstrap = function(server) {
 	var db = server.mqe.getDatabase();
@@ -92,7 +101,7 @@ exports.bootstrap = function(server) {
 		if( !data ) return res.send({error:true,message:"no data"});
 		
 		// simple sanity check
-		if( !data.submitterEmail ) return res.send({error:true,message:"invalid number of arguments"});
+		if( !data.submitterEmail ) return res.send({error: true,message: "invalid number of arguments"});
 		
 		var d = new Date();
 		if( data._id ) {
@@ -104,14 +113,30 @@ exports.bootstrap = function(server) {
 		
 		data.lastModified = (d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear();
 		
-		// merge all contactinfo.county 's into the org.counties field
+
 		if( !data.counties ) data.counties = [];
-		else if ( typeof data.counties == 'string' ) data.counties = data.counties.split(",").trim();
+		else if ( typeof data.counties == 'string' ) {
+			data.counties = data.counties.split(",");
+			for( var i = 0; i < data.counties.length; i++ ) data.counties[i] = data.counties[i].trim();
+		}
+		
+		// merge all contactinfo.county 's into the org.counties field
+		data.counties_active_in = [];
+		for( var i = 0; i < data.counties.length; i++ ) {
+			if( data.counties[i].toLowerCase() == "all" ) {
+				data.counties_active_in = countiesList.slice(0);
+				break;
+			} else if( countiesList.indexOf(cap(data.counties[i])) > -1 ) {
+				data.counties_active_in.push(cap(data.counties[i]));
+			}
+		}
+		
 		if( data.contactInfo ) {
 			for( var i = 0; i < data.contactInfo.length; i++ ) {
 				if( data.contactInfo[i].county &&
-					data.counties.indexOf( data.contactInfo[i].county ) == -1 ) {
-					data.counties.push( data.contactInfo[i].county );
+					data.counties.indexOf( cap(data.contactInfo[i].county) ) == -1 && 
+					countiesList.indexOf(cap(data.contactInfo[i].county)) > -1 ) {
+					data.counties_active_in.push( data.contactInfo[i].county );
 				}
 			}
 		}
@@ -305,4 +330,14 @@ function cleanXml(txt) {
     		  .replace(/>/g, '&gt;')
     		  .replace(/"/g, '&quot;')
     		  .replace(/'/g, '&apos;');
+}
+
+function cap(str) {
+    var pieces = str.toLowerCase().split(" ");
+    for ( var i = 0; i < pieces.length; i++ )
+    {
+        var j = pieces[i].charAt(0).toUpperCase();
+        pieces[i] = j + pieces[i].substr(1);
+    }
+    return pieces.join(" ");
 }

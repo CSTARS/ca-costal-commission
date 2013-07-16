@@ -17,7 +17,7 @@ exports.db = {
 	
 	// Filters your site uses, these will be returned in the results
 	// MQE will also use this list to make sure indexes are built on these items
-	indexedFilters  : ["contactInfo.county", "counties","topics","eduResources", "audiences"],
+	indexedFilters  : ["contactInfo.county", "counties_active_in","topics","eduResources", "audiences"],
 	
 	// currently MQE only allows one sort option, place the attribute you wish to sort on here
 	sortBy          : "organization",

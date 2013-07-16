@@ -74,7 +74,7 @@ CCC.labels = {};
 CCC.labels.filters = {
 	"topics"                : "Topics",
 	"eduResources"          : "Educational Resources",
-	"counties"              : "County - Active In",
+	"counties_active_in"    : "County - Active In",
 	"audiences"             : "Target Audience",
 	"contactInfo.county"    : "County - Office Located"
 };

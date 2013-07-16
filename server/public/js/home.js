@@ -5,7 +5,7 @@ CCC.home = (function(){
 		
 		$("#org-by-office-county").append(_createLists(CCC.data.counties, 'contactInfo.county'));
 		
-		$("#org-by-active-county").append(_createLists(CCC.data.counties, 'counties'));
+		$("#org-by-active-county").append(_createLists(CCC.data.counties, 'counties_active_in'));
 		
 		$("#org-by-topic").append(_createLists(CCC.data.topics, 'topics'));
 		
