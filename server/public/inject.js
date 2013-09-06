@@ -173,7 +173,7 @@ CCC.onReady = function() {
 	CCC.home.init();
 	CCC.search.init();
 	CCC.result.init(CCC.host);
-	CERES.mqe.init("home",CCC.host);
+	CERES.mqe.init({defaultPage:"home",hostUrl:CCC.host});
 }
 
 // if IE prototype out indexOf
