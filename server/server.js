@@ -101,7 +101,7 @@ exports.bootstrap = function(server) {
 		if( !data ) return res.send({error:true,message:"no data"});
 		
 		// simple sanity check
-		if( !data.submitterEmail ) return res.send({error: true,message: "invalid number of arguments"});
+		if( !data.submitterEmail ) return res.send({error: true,message: "Please provide your email address"});
 		
 		var d = new Date();
 		if( data._id ) {

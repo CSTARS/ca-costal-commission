@@ -20,14 +20,14 @@ CCC.all = (function() {
 	
 	function _createList(data) {
 		var list = $("<ul />"), li;
-		var firstChar = _getFirstChar(data[1]);
+		var firstChar = _getFirstChar(data[0]);
 		var panel = $("#all");
 		var nav = $("#all-nav ul");
 		
 		_addHeader(panel, firstChar);
 		_addToNav(nav, firstChar);
 		
-		for( var i = 1; i < data.length; i++ ) {
+		for( var i = 0; i < data.length; i++ ) {
 			li = $("<li><a href='#result/"+data[i]._id+"'>"+data[i].organization+"</a></li>");
 			
 			if( _getFirstChar(data[i]) == firstChar ) {
