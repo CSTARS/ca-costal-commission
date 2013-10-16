@@ -6,6 +6,7 @@ CCC.app = (function() {
 	var validPages = [DEFAULT_PAGE, "search", "result", "all", "edit"];
 	
 	var cPage = "";
+	var user;
 	
 	$(window).ready(function(){
 		// mqe.js handles the hash parsing and fires this event
@@ -13,6 +14,17 @@ CCC.app = (function() {
 			_updatePage(hash[0]);
 			_updatePageContent(hash);
 		});
+		
+          $.ajax({
+                url     : CCC.host ? CCC.host+"/rest/isLoggedIn" : "/rest/isLoggedIn",
+                success : function(resp) {
+                    if( !resp.status ) return;
+                    if( resp.user.roles.indexOf("admin") > -1 ) {
+                        user = resp.user;
+                        $("#uainfo").html("Welcome admin, "+user.username);
+                    }
+                }
+            });
 	});
 	
 	function _updatePage(page) {
@@ -37,6 +49,14 @@ CCC.app = (function() {
 		} else if ( cPage == "edit" ) {
 			CCC.edit.init(CCC.host);
 		}
+	}
+	
+	function getUser() {
+	    return user;
+	}
+	
+	return {
+	    getUser : getUser
 	}
 	
 	

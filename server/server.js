@@ -18,13 +18,6 @@ if( config.email ) {
 	        port : config.email.port
 	});
 }
-
-
-// include auth model
-var auth;
-if( config.auth ) {
-	auth = require(config.auth.script);
-}
  
 var exportHeaders = [
 	{caption:'Organization', type:'string'},
@@ -155,14 +148,14 @@ exports.bootstrap = function(server) {
 	
 	// admin only
 	// get all edits
-	server.app.get('/rest/allEdits', function(req, res){
+	server.app.get('/rest/admin/allEdits', function(req, res){
 		editCollection.find({},{organization:1,submitterName:1,dateEntered:1,lastModified:1,currentId:1}).sort({organization:1,submitterName:1}).toArray(function(err, items) {
 			if( err ) res.send({error:true,message:err});
 			else res.send({items: items});
 		});
 	});
 	
-	server.app.get('/rest/getEdit', function(req, res){
+	server.app.get('/rest/admin/getEdit', function(req, res){
 		
 		var id = req.query._id;
 		if( !id ) return res.send({error:true,message:"no id provided"});
@@ -174,7 +167,29 @@ exports.bootstrap = function(server) {
 		});
 	});
 	
-	server.app.get('/rest/approveEdit', function(req, res){
+	server.app.get('/rest/admin/delete', function(req, res){
+	    var id = req.query._id;
+	    if( !id ) return res.send({error:true,message:"no id provided"});
+	    
+	    // remove any pending edits
+	    editCollection.remove({currentId: id}, function(err, result){
+	    
+             // remove record
+             collection.remove({_id: ObjectId(id)}, function(err, result){
+                if( err ) return res.send({error:true,message:err});
+                
+                // clear cache
+                cacheCollection.remove(function(err, result){
+                    if( err ) return res.send({error:true,message:err});
+                    res.send({success:true});
+                });
+                
+                res.send({success:true});
+            });
+	    });
+	});
+	
+	server.app.get('/rest/admin/approveEdit', function(req, res){
 		
 		var id = req.query._id;
 		if( !id ) return res.send({error:true,message:"no id provided"});
@@ -224,7 +239,7 @@ exports.bootstrap = function(server) {
 
 	});
 	
-	server.app.get('/rest/rejectEdit', function(req, res){
+	server.app.get('/rest/admin/rejectEdit', function(req, res){
 		var id = req.query._id;
 		if( !id ) return res.send({error:true,message:"no id provided"});
 		
@@ -234,7 +249,7 @@ exports.bootstrap = function(server) {
 		});
 	});
 	
-	server.app.get('/rest/export', function(req, res){
+	server.app.get('/rest/admin/export', function(req, res){
 		
 		collection.find({},{}).sort({organization:1}).toArray(function(err, items) {
 			if( err ) return res.send({error:true,message:err});
@@ -274,8 +289,6 @@ exports.bootstrap = function(server) {
 				rows.push(row);
 			}
 			
-			console.log(rows);
-			
 			var conf = {
 				cols : exportHeaders,
 				rows : rows
@@ -291,8 +304,6 @@ exports.bootstrap = function(server) {
 	
 	server.app.use("/", server.express.static(__dirname+"/public"));
 	
-	// set the auth endpoints
-	if( config.auth ) auth.init(server.app, server.passport, config);
 	
 };
 

@@ -4,6 +4,7 @@ CCC.edit = (function(){
 	var initialized = false;
 	var options = {};
 	var host = "";
+	var user = null;
 	
 	function init(h) {
 		host = h;
@@ -25,6 +26,7 @@ CCC.edit = (function(){
 	}
 	
 	function _update() {
+	    $("#btn-root").html("");
 		$("#form-root").html("");
 		$("#form-error-msg").html("");
 		
@@ -44,6 +46,32 @@ CCC.edit = (function(){
 					$("#form-root-contactInfo-0-remove").remove();
 				}
 			});
+			
+	        if( CCC.app.getUser() != null ) {
+	            var dbtn = $("<a class='btn btn-danger'>Delete Record</a>").on('click', function(){
+	                if( $(this).hasClass("disabled") ) return;
+	                
+	                if( confirm("Are you REALLY sure you want to delete this record forever!?") ) {
+	                    $(this).addClass("disabled").html("Removing...");
+
+	                    $.ajax({
+	                        url : host ? host+"/rest/admin/delete?_id="+parts[1] : "/rest/admin/delete?_id="+parts[1],
+	                        success : function(resp) {
+	                            if( resp.error ) {
+	                                alert("Failed to delete record: "+resp.message);
+	                                $(this).removeClass("disabled").html("Delete Record");
+	                                return;
+	                            }
+	                            
+	                            alert("Record successfully removed.");
+	                            window.location = "#search";
+	                        }
+	                    });
+	                }
+	            });
+	            $("#btn-root").append(dbtn);
+	        }
+			
 		} else {
 			tmpOptions.data = null;
 			Ceres.forms.generate(tmpOptions);

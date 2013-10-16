@@ -24,7 +24,7 @@ CCC.admin = (function(){
 			if( confirm("Are you sure you want to update the record?  It will replace your current record.") ) {
 				$(this).addClass("disabled").html("Approving...");
 				$.ajax({
-					url : "/rest/approveEdit?_id="+cId,
+					url : "/rest/admin/approveEdit?_id="+cId,
 					success : function(resp){
 						if( resp.error ) return alert("failed to approve record.");
 						$("#approve-btn").removeClass("disabled").html("Approve");
@@ -44,7 +44,7 @@ CCC.admin = (function(){
 			if( confirm("Are you sure you want to REJECT the record?  It will be deleted.") ) {
 				$(this).addClass("disabled").html("Rejecting...");
 				$.ajax({
-					url : "/rest/rejectEdit?_id="+cId,
+					url : "/rest/admin/rejectEdit?_id="+cId,
 					success : function(resp){
 						if( resp.error ) return alert("failed to reject record.");
 						$("#reject-btn").removeClass("disabled").html("Reject");
@@ -70,7 +70,7 @@ CCC.admin = (function(){
 		
 		if( !homeRendered ) {
 			$.ajax({
-				url     : "/rest/allEdits",
+				url     : "/rest/admin/allEdits",
 				success : function(resp) {
 					if( resp.error ) return alert("failed to load");
 					
@@ -134,7 +134,7 @@ CCC.admin = (function(){
 	
 	function _getEdit(id, callback) {
 		$.ajax({
-			url     : '/rest/getEdit?_id='+id,
+			url     : '/rest/admin/getEdit?_id='+id,
 			success : function(resp) {
 				if( resp.error ) return callback(resp);
 				
