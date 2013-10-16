@@ -20,6 +20,7 @@ CCC.app = (function() {
                 xhrFields : {
                     withCredentials: true
                 },
+                crossDomain: true,
                 success   : function(resp) {
                     if( !resp.status ) return;
                     if( resp.user.roles.indexOf("admin") > -1 ) {
